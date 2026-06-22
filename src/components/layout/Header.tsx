@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { Logo } from "@/components/ui-bits/Logo";
-import { clinicShort, tagline, whatsappLink } from "@/lib/site";
-import { Calendar } from "lucide-react";
+import { clinicShort, tagline, whatsappLink, telLink, phoneDisplay } from "@/lib/site";
+import { Calendar, Phone } from "lucide-react";
 
 const navItems = [
   { to: "/", label: "Home" },
@@ -17,15 +17,17 @@ export function Header() {
 
   return (
     <header className="fixed top-3 left-1/2 z-40 -translate-x-1/2 w-[min(1100px,calc(100%-1.25rem))]">
-      <div className="flex items-center justify-between gap-3 rounded-full border border-border/60 bg-background/80 px-3 py-2 backdrop-blur-xl shadow-card">
-        <Link to="/" className="flex items-center gap-3 pl-1">
-          <Logo size={40} />
+      <div className="flex items-center justify-between gap-2 rounded-full border border-border/60 bg-background/80 px-3 py-2 backdrop-blur-xl shadow-card">
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-2.5 pl-1 shrink-0">
+          <Logo size={38} />
           <div className="hidden sm:flex flex-col leading-tight">
             <span className="text-[13px] font-bold text-accent">{clinicShort}</span>
             <span className="text-[10px] uppercase tracking-[0.18em] text-primary">{tagline}</span>
           </div>
         </Link>
 
+        {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-1">
           {navItems.map((item) => {
             const active = item.to === "/" ? pathname === "/" : pathname.startsWith(item.to);
@@ -45,15 +47,29 @@ export function Header() {
           })}
         </nav>
 
-        <a
-          href={whatsappLink("Hi Dr. Manisha, I would like to book an appointment at The Tooth Wellness Dental Clinic.")}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hidden sm:inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-[12px] font-semibold text-accent-foreground hover:opacity-90 transition shadow-soft"
-        >
-          <Calendar className="h-3.5 w-3.5" />
-          Book Now
-        </a>
+        {/* CTA buttons — visible on all screen sizes */}
+        <div className="flex items-center gap-2 shrink-0">
+          {/* Call Now — always visible */}
+          <a
+            href={telLink}
+            aria-label={`Call ${phoneDisplay}`}
+            className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-2 text-[12px] font-semibold text-primary hover:bg-primary/20 transition"
+          >
+            <Phone className="h-3.5 w-3.5" />
+            <span className="hidden sm:inline">Call Now</span>
+          </a>
+
+          {/* Book Now via WhatsApp */}
+          <a
+            href={whatsappLink("Hi Dr. Manisha, I would like to book an appointment at The Tooth Wellness Dental Clinic.")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-full bg-accent px-3 sm:px-4 py-2 text-[12px] font-semibold text-accent-foreground hover:opacity-90 transition shadow-soft"
+          >
+            <Calendar className="h-3.5 w-3.5" />
+            <span>Book Now</span>
+          </a>
+        </div>
       </div>
     </header>
   );

@@ -7,21 +7,21 @@ import {
   CheckCircle2,
   ArrowRight,
   MapPin,
+  Phone,
   Sparkles,
 } from "lucide-react";
 
 import { SectionLabel } from "@/components/ui-bits/SectionLabel";
 import { Reveal } from "@/components/ui-bits/Reveal";
 import {
-  clinicName,
   clinicShort,
-  tagline,
   doctorName,
   doctorCredentials,
   city,
   whatsappLink,
   telLink,
   mapDirectionsUrl,
+  phoneDisplay,
 } from "@/lib/site";
 import {
   features,
@@ -38,8 +38,7 @@ import {
 export default function Home() {
   return (
     <div>
-      <Hero />
-      <ClinicBanner />
+      <ClinicHero />
       <DoctorIntro />
       <StatsRow />
       <WhyChooseUs />
@@ -52,140 +51,160 @@ export default function Home() {
   );
 }
 
-function Hero() {
+/* ─────────────────────────────────────────────
+   SECTION 1 — Clinic exterior as the hero image
+───────────────────────────────────────────── */
+function ClinicHero() {
   return (
-    <section className="relative">
-      <div className="mx-auto max-w-6xl px-5 md:px-8 py-8 md:py-16 grid md:grid-cols-[1.15fr_1fr] gap-10 md:gap-14 items-center">
-        <Reveal>
-          <div>
-            <SectionLabel>Where Dentistry Meets Care</SectionLabel>
-            <h1 className="mt-5 text-balance text-[40px] leading-[1.05] md:text-[64px] font-black tracking-tight text-accent">
-              Premium dental care,{" "}
-              <span className="italic font-serif text-primary">where your smile begins.</span>
-            </h1>
-            <p className="mt-5 text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl">
-              {clinicShort} is a 5-star rated clinic in {city}, led by {doctorName} ({doctorCredentials}).
-              Painless treatments, modern equipment and a warm, welcoming team — for every smile in the family.
-            </p>
+    <section className="px-4 md:px-8 pt-2 pb-10 md:pb-16">
+      <div className="mx-auto max-w-6xl">
 
-            <div className="mt-7 flex flex-wrap gap-3">
-              <a
-                href={whatsappLink(`Hi ${doctorName}, I'd like to book an appointment at ${clinicShort}.`)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-gold hover:opacity-95 transition"
-              >
-                <Calendar className="h-4 w-4" /> Book Appointment
-              </a>
-              <a
-                href={whatsappLink("Hi, I'd like a free WhatsApp consultation.")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-background px-6 py-3 text-sm font-semibold text-accent hover:bg-accent-soft transition"
-              >
-                <MessageCircle className="h-4 w-4" /> WhatsApp Consultation
-              </a>
-            </div>
+        {/* Full-width clinic photo with overlay text */}
+        <div className="relative w-full overflow-hidden rounded-[2rem] shadow-image">
+          <img
+            src={clinicExteriorImg}
+            alt={`${clinicShort} — dental clinic in ${city}`}
+            className="w-full h-[58vw] min-h-[280px] max-h-[560px] object-cover"
+            loading="eager"
+          />
+          {/* dark gradient for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-accent/90 via-accent/30 to-transparent" />
 
-            <div className="mt-8 flex flex-wrap gap-2.5">
-              {[
-                { icon: Star, text: "5.0 Google Rating" },
-                { icon: Sparkles, text: "Painless Care" },
-                { icon: CheckCircle2, text: "Sterilised Protocol" },
-                { icon: MapPin, text: `${city}, Punjab` },
-              ].map((p) => {
-                const I = p.icon;
-                return (
-                  <span
-                    key={p.text}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-card border border-border px-3 py-1.5 text-[12px] font-semibold text-accent shadow-card"
-                  >
-                    <I className="h-3.5 w-3.5 text-primary" />
-                    {p.text}
-                  </span>
-                );
-              })}
+          {/* Floating badge top-right */}
+          <div className="absolute top-4 right-4 md:top-6 md:right-6 flex items-center gap-1.5 rounded-full bg-background/90 backdrop-blur px-3 py-1.5 shadow-card border border-border">
+            <div className="flex">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="h-3 w-3 fill-primary text-primary" />
+              ))}
             </div>
+            <span className="text-[11px] font-bold text-accent">5.0 Google</span>
           </div>
-        </Reveal>
 
-        <Reveal delay={0.1}>
-          <div className="relative">
-            <div className="absolute inset-0 gradient-accent rounded-[2rem] rotate-3" aria-hidden />
-            <img
-              src={doctorImg}
-              alt={`${doctorName}, Dental Surgeon at ${clinicShort}`}
-              className="relative rounded-[2rem] w-full aspect-[4/5] object-cover shadow-image"
-              loading="eager"
-            />
+          {/* Bottom-left headline overlay */}
+          <div className="absolute bottom-0 left-0 right-0 p-5 md:p-10">
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="absolute -bottom-5 -left-3 md:left-6 bg-card rounded-2xl p-4 shadow-soft border border-border max-w-[200px]"
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="flex items-center gap-1 text-primary">
-                {[...Array(5)].map((_, i) => <Star key={i} className="h-3.5 w-3.5 fill-primary" />)}
+              <span className="inline-flex items-center gap-2 text-[10px] md:text-[11px] font-semibold uppercase tracking-[0.22em] text-primary-glow">
+                <span className="h-px w-6 bg-primary-glow/60" />
+                {city}, Punjab
+              </span>
+              <h1 className="mt-2 text-[28px] md:text-[52px] lg:text-[64px] font-black leading-[1.05] tracking-tight text-accent-foreground">
+                Premium dental care,{" "}
+                <span className="italic font-serif text-primary-glow">
+                  where your smile begins.
+                </span>
+              </h1>
+
+              {/* CTA row */}
+              <div className="mt-4 md:mt-6 flex flex-wrap gap-2 md:gap-3">
+                <a
+                  href={whatsappLink(`Hi ${doctorName}, I'd like to book an appointment at ${clinicShort}.`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-5 md:px-6 py-2.5 md:py-3 text-sm font-semibold text-primary-foreground shadow-gold hover:opacity-95 transition"
+                >
+                  <Calendar className="h-4 w-4" /> Book Appointment
+                </a>
+                <a
+                  href={telLink}
+                  className="inline-flex items-center gap-2 rounded-full bg-background/20 border border-background/40 backdrop-blur px-5 md:px-6 py-2.5 md:py-3 text-sm font-semibold text-accent-foreground hover:bg-background/30 transition"
+                >
+                  <Phone className="h-4 w-4" /> {phoneDisplay}
+                </a>
+                <a
+                  href={mapDirectionsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hidden sm:inline-flex items-center gap-2 rounded-full bg-background/20 border border-background/40 backdrop-blur px-5 md:px-6 py-2.5 md:py-3 text-sm font-semibold text-accent-foreground hover:bg-background/30 transition"
+                >
+                  <MapPin className="h-4 w-4" /> Get Directions
+                </a>
               </div>
-              <p className="mt-1.5 text-[12px] font-semibold text-accent">5.0 on Google</p>
-              <p className="text-[11px] text-muted-foreground">20+ verified reviews</p>
             </motion.div>
           </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
+        </div>
 
-function ClinicBanner() {
-  return (
-    <section className="px-5 md:px-8">
-      <div className="mx-auto max-w-6xl relative overflow-hidden rounded-[2rem] shadow-image">
-        <img
-          src={clinicExteriorImg}
-          alt={`${clinicShort} clinic in ${city}`}
-          className="w-full h-[240px] md:h-[420px] object-cover"
-          loading="lazy"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-accent/70 via-accent/10 to-transparent" />
-        <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 rounded-2xl bg-card/95 backdrop-blur px-5 py-3 shadow-soft border border-border">
-          <p className="text-[11px] uppercase tracking-[0.18em] text-primary font-semibold">Trusted Care</p>
-          <p className="text-base md:text-lg font-bold text-accent">Modern Clinic · {city}</p>
+        {/* Trust pills below image */}
+        <div className="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
+          {[
+            { icon: Star, text: "5.0 Google Rating" },
+            { icon: Sparkles, text: "Painless Treatment" },
+            { icon: CheckCircle2, text: "Sterilised Protocol" },
+            { icon: MapPin, text: `${city}, Punjab` },
+          ].map((p) => {
+            const I = p.icon;
+            return (
+              <span
+                key={p.text}
+                className="inline-flex items-center gap-1.5 rounded-full bg-card border border-border px-3 py-1.5 text-[12px] font-semibold text-accent shadow-card"
+              >
+                <I className="h-3.5 w-3.5 text-primary" />
+                {p.text}
+              </span>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
 
+/* ─────────────────────────────────────────────
+   SECTION 2 — Doctor intro: photo + text
+───────────────────────────────────────────── */
 function DoctorIntro() {
   return (
-    <section className="px-5 md:px-8 py-16 md:py-24">
-      <div className="mx-auto max-w-6xl grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+    <section className="px-4 md:px-8 pb-14 md:pb-24">
+      <div className="mx-auto max-w-6xl grid md:grid-cols-[1fr_1.15fr] gap-8 md:gap-14 items-center">
+
+        {/* Doctor photo */}
         <Reveal>
-          <img
-            src={doctorImg}
-            alt={`${doctorName} ${doctorCredentials}`}
-            className="rounded-[2rem] w-full aspect-[4/5] object-cover shadow-image"
-            loading="lazy"
-          />
+          <div className="relative">
+            <div className="absolute inset-0 gradient-accent rounded-[2rem] rotate-2" aria-hidden />
+            <img
+              src={doctorImg}
+              alt={`${doctorName} — ${doctorCredentials}, ${clinicShort}`}
+              className="relative w-full aspect-[4/5] object-cover rounded-[2rem] shadow-image"
+              loading="lazy"
+            />
+            {/* floating name card */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="absolute -bottom-4 -right-2 md:right-6 bg-card rounded-2xl px-4 py-3 shadow-soft border border-border"
+            >
+              <p className="text-[13px] font-black text-accent">{doctorName}</p>
+              <p className="text-[11px] text-primary font-semibold">{doctorCredentials} · Dental Surgeon</p>
+            </motion.div>
+          </div>
         </Reveal>
+
+        {/* Intro text */}
         <Reveal delay={0.1}>
           <div>
-            <SectionLabel>Meet the Doctor</SectionLabel>
+            <SectionLabel>Meet Your Doctor</SectionLabel>
             <h2 className="mt-4 text-3xl md:text-5xl font-black text-accent">
-              {doctorName}, <span className="text-primary italic font-serif">{doctorCredentials}</span>
+              {doctorName},{" "}
+              <span className="italic font-serif text-primary">{doctorCredentials}</span>
             </h2>
-            <p className="mt-5 text-muted-foreground leading-relaxed">
-              A passionate dental surgeon dedicated to delivering gentle, evidence-based care. With a
-              calm, patient-first approach, {doctorName} has built {clinicShort} into one of
-              {" "}{city}'s most loved 5-star dental clinics.
+            <p className="mt-4 text-muted-foreground leading-relaxed">
+              Founder and lead dental surgeon at {clinicShort}, {doctorName} has built a reputation
+              across {city} for delivering <strong className="text-accent">painless, modern
+              and genuinely caring dentistry</strong>. Every patient is treated like family — from
+              the first consultation to the final follow-up.
             </p>
+
             <ul className="mt-6 space-y-3">
               {[
                 "BDS — Registered with Punjab Dental Council",
-                "Specialised in painless, single-sitting procedures",
-                "Trained in modern cosmetic and restorative dentistry",
-                "Loved for warm, child-friendly chairside manner",
+                "Expert in painless single-sitting procedures",
+                "Trained in cosmetic & restorative dentistry",
+                "Warm, child-friendly chairside approach",
               ].map((b) => (
                 <li key={b} className="flex items-start gap-3 text-sm text-accent">
                   <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
@@ -193,12 +212,23 @@ function DoctorIntro() {
                 </li>
               ))}
             </ul>
-            <Link
-              to="/about"
-              className="mt-7 inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground hover:opacity-90 transition"
-            >
-              More about {doctorName} <ArrowRight className="h-4 w-4" />
-            </Link>
+
+            <div className="mt-7 flex flex-wrap gap-3">
+              <a
+                href={whatsappLink(`Hi ${doctorName}, I'd like to book an appointment.`)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-gold hover:opacity-95 transition"
+              >
+                <Calendar className="h-4 w-4" /> Book Appointment
+              </a>
+              <Link
+                to="/about"
+                className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-background px-5 py-2.5 text-sm font-semibold text-accent hover:bg-accent-soft transition"
+              >
+                About {doctorName} <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
           </div>
         </Reveal>
       </div>
@@ -206,9 +236,12 @@ function DoctorIntro() {
   );
 }
 
+/* ─────────────────────────────────────────────
+   SECTION 3 — Stats row
+───────────────────────────────────────────── */
 function StatsRow() {
   return (
-    <section className="px-5 md:px-8">
+    <section className="px-4 md:px-8 pb-14 md:pb-20">
       <div className="mx-auto max-w-6xl rounded-3xl gradient-accent p-6 md:p-10 shadow-card">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((s, i) => (
@@ -227,9 +260,12 @@ function StatsRow() {
   );
 }
 
+/* ─────────────────────────────────────────────
+   SECTION 4 — Why Choose Us
+───────────────────────────────────────────── */
 function WhyChooseUs() {
   return (
-    <section className="px-5 md:px-8 py-16 md:py-24">
+    <section className="px-4 md:px-8 pb-14 md:pb-24">
       <div className="mx-auto max-w-6xl">
         <div className="max-w-2xl">
           <SectionLabel>Why Choose Us</SectionLabel>
@@ -262,10 +298,13 @@ function WhyChooseUs() {
   );
 }
 
+/* ─────────────────────────────────────────────
+   SECTION 5 — Treatments preview
+───────────────────────────────────────────── */
 function TreatmentsPreview() {
   const featured = treatments.slice(0, 6);
   return (
-    <section className="px-5 md:px-8 py-8 md:py-16">
+    <section className="px-4 md:px-8 pb-14 md:pb-20">
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div className="max-w-2xl">
@@ -312,10 +351,13 @@ function TreatmentsPreview() {
   );
 }
 
+/* ─────────────────────────────────────────────
+   SECTION 6 — Gallery strip
+───────────────────────────────────────────── */
 function GalleryStrip() {
   const shots = galleryItems.slice(0, 6);
   return (
-    <section className="px-5 md:px-8 py-16 md:py-24">
+    <section className="px-4 md:px-8 pb-14 md:pb-24">
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div className="max-w-2xl">
@@ -336,7 +378,11 @@ function GalleryStrip() {
         <div className="mt-10 grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
           {shots.map((g, i) => (
             <Reveal key={g.id} delay={i * 0.04}>
-              <div className={`overflow-hidden rounded-2xl md:rounded-3xl shadow-card ${i % 3 === 0 ? "row-span-2 aspect-[3/4]" : "aspect-square"}`}>
+              <div
+                className={`overflow-hidden rounded-2xl md:rounded-3xl shadow-card ${
+                  i % 3 === 0 ? "row-span-2 aspect-[3/4]" : "aspect-square"
+                }`}
+              >
                 <img
                   src={g.src}
                   alt={g.alt}
@@ -352,10 +398,13 @@ function GalleryStrip() {
   );
 }
 
+/* ─────────────────────────────────────────────
+   SECTION 7 — Reviews
+───────────────────────────────────────────── */
 function ReviewsSection() {
   const featured = reviews.slice(0, 3);
   return (
-    <section className="px-5 md:px-8 py-8 md:py-16">
+    <section className="px-4 md:px-8 pb-14 md:pb-20">
       <div className="mx-auto max-w-6xl">
         <div className="text-center max-w-2xl mx-auto">
           <SectionLabel>Patient Reviews</SectionLabel>
@@ -365,7 +414,9 @@ function ReviewsSection() {
           </h2>
           <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-card border border-border px-4 py-2 shadow-card">
             <div className="flex">
-              {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-primary text-primary" />)}
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="h-4 w-4 fill-primary text-primary" />
+              ))}
             </div>
             <span className="text-sm font-semibold text-accent">5.0 · 20+ Google reviews</span>
           </div>
@@ -376,12 +427,16 @@ function ReviewsSection() {
             <Reveal key={r.name} delay={i * 0.05}>
               <div className="h-full rounded-3xl bg-card border border-border p-6 shadow-card">
                 <div className="flex text-primary">
-                  {[...Array(r.rating)].map((_, i) => <Star key={i} className="h-4 w-4 fill-primary" />)}
+                  {[...Array(r.rating)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-primary" />
+                  ))}
                 </div>
                 <p className="mt-4 text-sm text-accent/90 leading-relaxed italic">"{r.text}"</p>
                 <div className="mt-5 pt-4 border-t border-border flex items-center justify-between">
                   <p className="text-sm font-bold text-accent">{r.name}</p>
-                  <span className="text-[11px] uppercase tracking-wider text-muted-foreground">Verified</span>
+                  <span className="text-[11px] uppercase tracking-wider text-muted-foreground">
+                    Verified
+                  </span>
                 </div>
               </div>
             </Reveal>
@@ -389,7 +444,10 @@ function ReviewsSection() {
         </div>
 
         <div className="text-center mt-8">
-          <Link to="/reviews" className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground hover:opacity-90 transition">
+          <Link
+            to="/reviews"
+            className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground hover:opacity-90 transition"
+          >
             Read all reviews <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -398,9 +456,12 @@ function ReviewsSection() {
   );
 }
 
+/* ─────────────────────────────────────────────
+   SECTION 8 — Patient journey
+───────────────────────────────────────────── */
 function PatientJourney() {
   return (
-    <section className="px-5 md:px-8 py-16 md:py-24">
+    <section className="px-4 md:px-8 pb-14 md:pb-24">
       <div className="mx-auto max-w-6xl">
         <div className="max-w-2xl">
           <SectionLabel>Your Journey</SectionLabel>
@@ -427,9 +488,12 @@ function PatientJourney() {
   );
 }
 
+/* ─────────────────────────────────────────────
+   SECTION 9 — CTA banner
+───────────────────────────────────────────── */
 function CtaBanner() {
   return (
-    <section className="px-5 md:px-8">
+    <section className="px-4 md:px-8 pb-8">
       <div className="mx-auto max-w-6xl relative overflow-hidden rounded-[2rem] gradient-hero p-8 md:p-14 text-accent-foreground shadow-image">
         <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-primary/30 blur-3xl" aria-hidden />
         <img
@@ -445,7 +509,7 @@ function CtaBanner() {
             <span className="text-primary-glow italic font-serif">smile journey?</span>
           </h2>
           <p className="mt-4 text-accent-foreground/80">
-            Same-week appointments available. WhatsApp us for a quick consultation.
+            Same-week appointments available. Call or WhatsApp us for a quick consultation.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <a
@@ -460,7 +524,7 @@ function CtaBanner() {
               href={telLink}
               className="inline-flex items-center gap-2 rounded-full bg-background/15 border border-background/30 px-6 py-3 text-sm font-semibold text-accent-foreground hover:bg-background/25 transition"
             >
-              Call Now
+              <Phone className="h-4 w-4" /> Call Now
             </a>
             <a
               href={mapDirectionsUrl}
