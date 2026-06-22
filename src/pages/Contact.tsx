@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -45,7 +46,18 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>;
 
 export default function Contact() {
+  const location = useLocation();
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (location.hash) {
+      const el = document.getElementById(location.hash.slice(1));
+      if (el) {
+        setTimeout(() => el.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
+      }
+    }
+  }, [location.hash]);
+
   const {
     register,
     handleSubmit,
@@ -76,7 +88,7 @@ export default function Contact() {
       </div>
 
       <div className="mx-auto max-w-6xl pb-20 grid lg:grid-cols-[1.1fr_1fr] gap-6 lg:gap-8">
-        <div className="rounded-3xl bg-card border border-border p-6 md:p-8 shadow-card">
+        <div id="appointment-form" className="rounded-3xl bg-card border border-border p-6 md:p-8 shadow-card">
           <h2 className="text-2xl font-black text-accent">Appointment Request</h2>
           <p className="mt-1 text-sm text-muted-foreground">All fields marked are required.</p>
 

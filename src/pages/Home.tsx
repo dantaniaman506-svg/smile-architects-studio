@@ -76,14 +76,12 @@ function Hero() {
             </p>
 
             <div className="mt-7 flex flex-wrap gap-3">
-              <a
-                href={whatsappLink(`Hi ${doctorName}, I'd like to book an appointment at ${clinicShort}.`)}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                to="/contact#appointment-form"
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-gold hover:opacity-95 transition"
               >
                 <Calendar className="h-4 w-4" /> Book Appointment
-              </a>
+              </Link>
               <a
                 href={whatsappLink("Hi, I'd like a free WhatsApp consultation.")}
                 target="_blank"
@@ -251,14 +249,12 @@ function DoctorIntro() {
             </ul>
 
             <div className="mt-7 flex flex-wrap gap-3">
-              <a
-                href={whatsappLink(`Hi ${doctorName}, I'd like to book an appointment.`)}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                to="/contact#appointment-form"
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-gold hover:opacity-95 transition"
               >
                 <Calendar className="h-4 w-4" /> Book Appointment
-              </a>
+              </Link>
               <Link
                 to="/about"
                 className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-background px-5 py-2.5 text-sm font-semibold text-accent hover:bg-accent-soft transition"
@@ -549,14 +545,12 @@ function CtaBanner() {
             Same-week appointments available. Call or WhatsApp us for a quick consultation.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <a
-              href={whatsappLink(`Hi ${doctorName}, I'd like to book an appointment.`)}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/contact#appointment-form"
               className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-gold hover:opacity-95 transition"
             >
               <Calendar className="h-4 w-4" /> Book Appointment
-            </a>
+            </Link>
             <a
               href={telLink}
               className="inline-flex items-center gap-2 rounded-full bg-background/15 border border-background/30 px-6 py-3 text-sm font-semibold text-accent-foreground hover:bg-background/25 transition"
