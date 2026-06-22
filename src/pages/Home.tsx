@@ -38,7 +38,8 @@ import {
 export default function Home() {
   return (
     <div>
-      <ClinicHero />
+      <Hero />
+      <ClinicBanner />
       <DoctorIntro />
       <StatsRow />
       <WhyChooseUs />
@@ -52,100 +53,110 @@ export default function Home() {
 }
 
 /* ─────────────────────────────────────────────
-   SECTION 1 — Clinic exterior as the hero image
+   SECTION 1 — Original hero: text left, doctor photo right
 ───────────────────────────────────────────── */
-function ClinicHero() {
+function Hero() {
   return (
-    <section className="px-4 md:px-8 pt-2 pb-10 md:pb-16">
-      <div className="mx-auto max-w-6xl">
+    <section className="relative">
+      <div className="mx-auto max-w-6xl px-5 md:px-8 py-8 md:py-16 grid md:grid-cols-[1.15fr_1fr] gap-10 md:gap-14 items-center">
+        <Reveal>
+          <div>
+            <SectionLabel>Where Dentistry Meets Care</SectionLabel>
+            <h1 className="mt-5 text-balance text-[40px] leading-[1.05] md:text-[64px] font-black tracking-tight text-accent">
+              Premium dental care,{" "}
+              <span className="italic font-serif text-primary">where your smile begins.</span>
+            </h1>
+            <p className="mt-5 text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl">
+              {clinicShort} is a 5-star rated clinic in {city}, led by {doctorName} ({doctorCredentials}).
+              Painless treatments, modern equipment and a warm, welcoming team — for every smile in the family.
+            </p>
 
-        {/* Full-width clinic photo with overlay text */}
-        <div className="relative w-full overflow-hidden rounded-[2rem] shadow-image">
-          <img
-            src={clinicExteriorImg}
-            alt={`${clinicShort} — dental clinic in ${city}`}
-            className="w-full h-[58vw] min-h-[280px] max-h-[560px] object-cover"
-            loading="eager"
-          />
-          {/* dark gradient for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-accent/90 via-accent/30 to-transparent" />
-
-          {/* Floating badge top-right */}
-          <div className="absolute top-4 right-4 md:top-6 md:right-6 flex items-center gap-1.5 rounded-full bg-background/90 backdrop-blur px-3 py-1.5 shadow-card border border-border">
-            <div className="flex">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="h-3 w-3 fill-primary text-primary" />
-              ))}
+            <div className="mt-7 flex flex-wrap gap-3">
+              <a
+                href={whatsappLink(`Hi ${doctorName}, I'd like to book an appointment at ${clinicShort}.`)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-gold hover:opacity-95 transition"
+              >
+                <Calendar className="h-4 w-4" /> Book Appointment
+              </a>
+              <a
+                href={whatsappLink("Hi, I'd like a free WhatsApp consultation.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-background px-6 py-3 text-sm font-semibold text-accent hover:bg-accent-soft transition"
+              >
+                <MessageCircle className="h-4 w-4" /> WhatsApp Consultation
+              </a>
             </div>
-            <span className="text-[11px] font-bold text-accent">5.0 Google</span>
+
+            <div className="mt-8 flex flex-wrap gap-2.5">
+              {[
+                { icon: Star, text: "5.0 Google Rating" },
+                { icon: Sparkles, text: "Painless Care" },
+                { icon: CheckCircle2, text: "Sterilised Protocol" },
+                { icon: MapPin, text: `${city}, Punjab` },
+              ].map((p) => {
+                const I = p.icon;
+                return (
+                  <span
+                    key={p.text}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-card border border-border px-3 py-1.5 text-[12px] font-semibold text-accent shadow-card"
+                  >
+                    <I className="h-3.5 w-3.5 text-primary" />
+                    {p.text}
+                  </span>
+                );
+              })}
+            </div>
           </div>
+        </Reveal>
 
-          {/* Bottom-left headline overlay */}
-          <div className="absolute bottom-0 left-0 right-0 p-5 md:p-10">
+        <Reveal delay={0.1}>
+          <div className="relative">
+            <div className="absolute inset-0 gradient-accent rounded-[2rem] rotate-3" aria-hidden />
+            <img
+              src={doctorImg}
+              alt={`${doctorName}, Dental Surgeon at ${clinicShort}`}
+              className="relative rounded-[2rem] w-full aspect-[4/5] object-cover shadow-image"
+              loading="eager"
+            />
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ delay: 0.5 }}
+              className="absolute -bottom-5 -left-3 md:left-6 bg-card rounded-2xl p-4 shadow-soft border border-border max-w-[200px]"
             >
-              <span className="inline-flex items-center gap-2 text-[10px] md:text-[11px] font-semibold uppercase tracking-[0.22em] text-primary-glow">
-                <span className="h-px w-6 bg-primary-glow/60" />
-                {city}, Punjab
-              </span>
-              <h1 className="mt-2 text-[28px] md:text-[52px] lg:text-[64px] font-black leading-[1.05] tracking-tight text-accent-foreground">
-                Premium dental care,{" "}
-                <span className="italic font-serif text-primary-glow">
-                  where your smile begins.
-                </span>
-              </h1>
-
-              {/* CTA row */}
-              <div className="mt-4 md:mt-6 flex flex-wrap gap-2 md:gap-3">
-                <a
-                  href={whatsappLink(`Hi ${doctorName}, I'd like to book an appointment at ${clinicShort}.`)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-5 md:px-6 py-2.5 md:py-3 text-sm font-semibold text-primary-foreground shadow-gold hover:opacity-95 transition"
-                >
-                  <Calendar className="h-4 w-4" /> Book Appointment
-                </a>
-                <a
-                  href={telLink}
-                  className="inline-flex items-center gap-2 rounded-full bg-background/20 border border-background/40 backdrop-blur px-5 md:px-6 py-2.5 md:py-3 text-sm font-semibold text-accent-foreground hover:bg-background/30 transition"
-                >
-                  <Phone className="h-4 w-4" /> {phoneDisplay}
-                </a>
-                <a
-                  href={mapDirectionsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hidden sm:inline-flex items-center gap-2 rounded-full bg-background/20 border border-background/40 backdrop-blur px-5 md:px-6 py-2.5 md:py-3 text-sm font-semibold text-accent-foreground hover:bg-background/30 transition"
-                >
-                  <MapPin className="h-4 w-4" /> Get Directions
-                </a>
+              <div className="flex items-center gap-1 text-primary">
+                {[...Array(5)].map((_, i) => <Star key={i} className="h-3.5 w-3.5 fill-primary" />)}
               </div>
+              <p className="mt-1.5 text-[12px] font-semibold text-accent">5.0 on Google</p>
+              <p className="text-[11px] text-muted-foreground">20+ verified reviews</p>
             </motion.div>
           </div>
-        </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
 
-        {/* Trust pills below image */}
-        <div className="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
-          {[
-            { icon: Star, text: "5.0 Google Rating" },
-            { icon: Sparkles, text: "Painless Treatment" },
-            { icon: CheckCircle2, text: "Sterilised Protocol" },
-            { icon: MapPin, text: `${city}, Punjab` },
-          ].map((p) => {
-            const I = p.icon;
-            return (
-              <span
-                key={p.text}
-                className="inline-flex items-center gap-1.5 rounded-full bg-card border border-border px-3 py-1.5 text-[12px] font-semibold text-accent shadow-card"
-              >
-                <I className="h-3.5 w-3.5 text-primary" />
-                {p.text}
-              </span>
-            );
-          })}
+/* ─────────────────────────────────────────────
+   SECTION 2 — Clinic exterior banner
+───────────────────────────────────────────── */
+function ClinicBanner() {
+  return (
+    <section className="px-5 md:px-8">
+      <div className="mx-auto max-w-6xl relative overflow-hidden rounded-[2rem] shadow-image">
+        <img
+          src={clinicExteriorImg}
+          alt={`${clinicShort} clinic in ${city}`}
+          className="w-full h-[240px] md:h-[420px] object-cover"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-accent/70 via-accent/10 to-transparent" />
+        <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 rounded-2xl bg-card/95 backdrop-blur px-5 py-3 shadow-soft border border-border">
+          <p className="text-[11px] uppercase tracking-[0.18em] text-primary font-semibold">Trusted Care</p>
+          <p className="text-base md:text-lg font-bold text-accent">Modern Clinic · {city}</p>
         </div>
       </div>
     </section>
