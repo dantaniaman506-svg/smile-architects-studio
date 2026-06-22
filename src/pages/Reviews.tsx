@@ -1,26 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { Star, CheckCircle2 } from "lucide-react";
-
 import { SectionLabel } from "@/components/ui-bits/SectionLabel";
 import { Reveal } from "@/components/ui-bits/Reveal";
 import { reviews } from "@/lib/data";
 import { clinicShort, doctorName } from "@/lib/site";
 
-export const Route = createFileRoute("/reviews")({
-  head: () => ({
-    meta: [
-      { title: `Patient Reviews | ${clinicShort} — 5.0 Google Rated` },
-      { name: "description", content: `Read 20+ verified 5-star Google reviews from patients of ${doctorName} at ${clinicShort}, Kharar.` },
-      { property: "og:title", content: `Reviews — ${clinicShort}` },
-      { property: "og:description", content: "20+ verified 5-star Google reviews from our patients." },
-      { property: "og:url", content: "/reviews" },
-    ],
-    links: [{ rel: "canonical", href: "/reviews" }],
-  }),
-  component: ReviewsPage,
-});
-
-function ReviewsPage() {
+export default function Reviews() {
   return (
     <div className="px-5 md:px-8">
       <div className="mx-auto max-w-6xl pt-4 pb-10">

@@ -1,26 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
 import { SectionLabel } from "@/components/ui-bits/SectionLabel";
 import { galleryItems, galleryCategories } from "@/lib/data";
 import { clinicShort } from "@/lib/site";
 
-export const Route = createFileRoute("/gallery")({
-  head: () => ({
-    meta: [
-      { title: `Clinic Gallery | ${clinicShort}` },
-      { name: "description", content: `See inside ${clinicShort} — modern dental treatment rooms, equipment, consultation areas and the clinic exterior in Kharar.` },
-      { property: "og:title", content: `Gallery — ${clinicShort}` },
-      { property: "og:description", content: "Photos of our modern dental clinic in Kharar." },
-      { property: "og:url", content: "/gallery" },
-    ],
-    links: [{ rel: "canonical", href: "/gallery" }],
-  }),
-  component: GalleryPage,
-});
-
-function GalleryPage() {
+export default function Gallery() {
   const [cat, setCat] = useState<string>("all");
   const filtered = cat === "all" ? galleryItems : galleryItems.filter((g) => g.category === cat);
 

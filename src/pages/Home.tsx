@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Star,
@@ -30,31 +30,12 @@ import {
   stats,
   treatments,
   galleryItems,
+  doctorImg,
+  clinicExteriorImg,
+  treatment1Img,
 } from "@/lib/data";
 
-import doctor from "@/assets/doctor.jpg.asset.json";
-import clinicExterior from "@/assets/clinic-exterior.jpg.asset.json";
-import equipment from "@/assets/equipment.jpg.asset.json";
-
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: `${clinicName} | ${doctorName} BDS | Best Dentist in ${city}` },
-      {
-        name: "description",
-        content: `${clinicName} — premium, painless dental care in ${city}. Led by ${doctorName} (BDS). Implants, RCT, aligners, whitening, smile makeovers & more. Book today.`,
-      },
-      { name: "keywords", content: "dental clinic Kharar, best dentist Kharar, root canal Kharar, dental implants Punjab, teeth whitening, Dr Manisha BDS, painless dental treatment, smile makeover" },
-      { property: "og:title", content: `${clinicName} — ${tagline}` },
-      { property: "og:description", content: `5-star rated dental clinic in ${city}. Painless treatment, modern equipment, expert care.` },
-      { property: "og:url", content: "/" },
-    ],
-    links: [{ rel: "canonical", href: "/" }],
-  }),
-  component: Home,
-});
-
-function Home() {
+export default function Home() {
   return (
     <div>
       <Hero />
@@ -132,7 +113,7 @@ function Hero() {
           <div className="relative">
             <div className="absolute inset-0 gradient-accent rounded-[2rem] rotate-3" aria-hidden />
             <img
-              src={doctor.url}
+              src={doctorImg}
               alt={`${doctorName}, Dental Surgeon at ${clinicShort}`}
               className="relative rounded-[2rem] w-full aspect-[4/5] object-cover shadow-image"
               loading="eager"
@@ -161,7 +142,7 @@ function ClinicBanner() {
     <section className="px-5 md:px-8">
       <div className="mx-auto max-w-6xl relative overflow-hidden rounded-[2rem] shadow-image">
         <img
-          src={clinicExterior.url}
+          src={clinicExteriorImg}
           alt={`${clinicShort} clinic in ${city}`}
           className="w-full h-[240px] md:h-[420px] object-cover"
           loading="lazy"
@@ -182,7 +163,7 @@ function DoctorIntro() {
       <div className="mx-auto max-w-6xl grid md:grid-cols-2 gap-10 md:gap-16 items-center">
         <Reveal>
           <img
-            src={doctor.url}
+            src={doctorImg}
             alt={`${doctorName} ${doctorCredentials}`}
             className="rounded-[2rem] w-full aspect-[4/5] object-cover shadow-image"
             loading="lazy"
@@ -308,20 +289,11 @@ function TreatmentsPreview() {
             return (
               <Reveal key={t.slug} delay={i * 0.04}>
                 <Link
-                  to="/treatments"
-                  hash={`treatment-${t.slug}`}
+                  to={`/treatments#treatment-${t.slug}`}
                   className="group block rounded-3xl bg-card border border-border overflow-hidden shadow-card hover:shadow-soft hover:-translate-y-1 transition"
                 >
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <img
-                      src={t.image}
-                      alt={t.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition duration-700"
-                      loading="lazy"
-                    />
-                    <div className="absolute top-3 left-3 inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-background/95 text-primary shadow-card">
-                      <I className="h-5 w-5" />
-                    </div>
+                  <div className="relative aspect-[4/3] overflow-hidden gradient-gold flex items-center justify-center">
+                    <I className="h-14 w-14 text-white/60" />
                   </div>
                   <div className="p-5">
                     <h3 className="text-lg font-bold text-accent">{t.title}</h3>
@@ -461,7 +433,7 @@ function CtaBanner() {
       <div className="mx-auto max-w-6xl relative overflow-hidden rounded-[2rem] gradient-hero p-8 md:p-14 text-accent-foreground shadow-image">
         <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-primary/30 blur-3xl" aria-hidden />
         <img
-          src={equipment.url}
+          src={treatment1Img}
           alt=""
           aria-hidden
           className="absolute right-0 top-0 h-full w-1/2 object-cover opacity-15 hidden md:block"

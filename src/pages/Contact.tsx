@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,20 +20,6 @@ import {
 } from "@/lib/site";
 import { treatments } from "@/lib/data";
 
-export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: `Contact & Book Appointment | ${clinicShort}, ${city}` },
-      { name: "description", content: `Book an appointment at ${clinicShort}. Phone, WhatsApp, address, hours and directions to our clinic in ${city}, Punjab.` },
-      { property: "og:title", content: `Contact ${clinicShort}` },
-      { property: "og:description", content: `Book an appointment, call or WhatsApp us — open Monday to Saturday, 10 AM – 8 PM.` },
-      { property: "og:url", content: "/contact" },
-    ],
-    links: [{ rel: "canonical", href: "/contact" }],
-  }),
-  component: ContactPage,
-});
-
 const schema = z.object({
   name: z.string().trim().min(2, "Please enter your name").max(80),
   phone: z
@@ -50,7 +35,7 @@ const schema = z.object({
     .refine(
       (val) => {
         const day = new Date(val).getDay();
-        return day !== 0; // Sunday
+        return day !== 0;
       },
       { message: "Clinic is closed on Sunday — please choose another day." },
     ),
@@ -59,7 +44,7 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
-function ContactPage() {
+export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const {
     register,
@@ -91,7 +76,6 @@ function ContactPage() {
       </div>
 
       <div className="mx-auto max-w-6xl pb-20 grid lg:grid-cols-[1.1fr_1fr] gap-6 lg:gap-8">
-        {/* Form */}
         <div className="rounded-3xl bg-card border border-border p-6 md:p-8 shadow-card">
           <h2 className="text-2xl font-black text-accent">Appointment Request</h2>
           <p className="mt-1 text-sm text-muted-foreground">All fields marked are required.</p>
@@ -163,14 +147,13 @@ function ContactPage() {
           </form>
         </div>
 
-        {/* Info */}
         <div className="space-y-5">
           <div className="rounded-3xl bg-card border border-border p-6 md:p-8 shadow-card">
             <h2 className="text-2xl font-black text-accent">Visit the clinic</h2>
             <ul className="mt-5 space-y-4">
               <li className="flex items-start gap-3">
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-accent-soft text-primary shrink-0">
-                  <MapPin className="h-4.5 w-4.5" />
+                  <MapPin className="h-4 w-4" />
                 </span>
                 <div>
                   <p className="text-sm font-bold text-accent">Address</p>
@@ -187,7 +170,7 @@ function ContactPage() {
               </li>
               <li className="flex items-start gap-3">
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-accent-soft text-primary shrink-0">
-                  <Phone className="h-4.5 w-4.5" />
+                  <Phone className="h-4 w-4" />
                 </span>
                 <div>
                   <p className="text-sm font-bold text-accent">Phone</p>
@@ -196,7 +179,7 @@ function ContactPage() {
               </li>
               <li className="flex items-start gap-3">
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-[#25D366]/15 text-[#1da851] shrink-0">
-                  <MessageCircle className="h-4.5 w-4.5" />
+                  <MessageCircle className="h-4 w-4" />
                 </span>
                 <div>
                   <p className="text-sm font-bold text-accent">WhatsApp</p>
@@ -212,7 +195,7 @@ function ContactPage() {
               </li>
               <li className="flex items-start gap-3">
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-accent-soft text-primary shrink-0">
-                  <Clock className="h-4.5 w-4.5" />
+                  <Clock className="h-4 w-4" />
                 </span>
                 <div className="w-full">
                   <p className="text-sm font-bold text-accent">Hours</p>

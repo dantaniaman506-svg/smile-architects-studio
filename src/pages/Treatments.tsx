@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -16,24 +15,7 @@ import { Reveal } from "@/components/ui-bits/Reveal";
 import { treatments } from "@/lib/data";
 import { whatsappLink, doctorName, clinicShort } from "@/lib/site";
 
-export const Route = createFileRoute("/treatments")({
-  head: () => ({
-    meta: [
-      { title: `Dental Treatments in Kharar | ${clinicShort}` },
-      {
-        name: "description",
-        content: `Explore all dental treatments at ${clinicShort} — implants, root canal, braces, aligners, whitening, crowns, dentures, kids dentistry & smile makeovers.`,
-      },
-      { property: "og:title", content: `Dental Treatments — ${clinicShort}` },
-      { property: "og:description", content: "Complete range of modern, painless dental treatments in Kharar." },
-      { property: "og:url", content: "/treatments" },
-    ],
-    links: [{ rel: "canonical", href: "/treatments" }],
-  }),
-  component: TreatmentsPage,
-});
-
-function TreatmentsPage() {
+export default function Treatments() {
   return (
     <div className="px-5 md:px-8">
       <div className="mx-auto max-w-2xl pt-4 pb-10">
@@ -103,13 +85,8 @@ function TreatmentCard({ t, index }: { t: (typeof treatments)[number]; index: nu
   return (
     <Reveal>
       <article id={`treatment-${t.slug}`} className="scroll-mt-32">
-        <div className="relative overflow-hidden rounded-3xl shadow-image">
-          <img
-            src={t.image}
-            alt={t.title}
-            className="w-full aspect-square object-cover"
-            loading="lazy"
-          />
+        <div className="relative overflow-hidden rounded-3xl shadow-image aspect-[4/3] gradient-gold flex items-center justify-center">
+          <Icon className="h-20 w-20 text-white/50" />
           <div className="absolute top-4 left-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-background/95 text-primary shadow-card">
             <Icon className="h-6 w-6" />
           </div>
@@ -131,7 +108,7 @@ function TreatmentCard({ t, index }: { t: (typeof treatments)[number]; index: nu
               <ul className="mt-3 space-y-2.5">
                 {t.benefits.map((b) => (
                   <li key={b} className="flex items-start gap-2.5 text-sm text-accent">
-                    <CheckCircle2 className="h-4.5 w-4.5 text-primary shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                     <span>{b}</span>
                   </li>
                 ))}

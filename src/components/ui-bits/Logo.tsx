@@ -1,9 +1,7 @@
-import logo from "@/assets/logo.png.asset.json";
-
 export function Logo({ size = 44 }: { size?: number }) {
   return (
     <img
-      src={logo.url}
+      src="/images/logo.png"
       alt="The Tooth Wellness Dental Clinic logo"
       width={size}
       height={size}

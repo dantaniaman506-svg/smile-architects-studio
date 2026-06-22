@@ -1,4 +1,4 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useLocation } from "react-router-dom";
 import { Home, Sparkles, Image as ImageIcon, Star, Phone } from "lucide-react";
 
 const tabs = [
@@ -7,10 +7,10 @@ const tabs = [
   { to: "/gallery", label: "Gallery", icon: ImageIcon },
   { to: "/reviews", label: "Reviews", icon: Star },
   { to: "/contact", label: "Contact", icon: Phone },
-] as const;
+];
 
 export function BottomNav() {
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const { pathname } = useLocation();
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-40 md:hidden border-t border-border/70 bg-background/95 backdrop-blur-xl shadow-soft">

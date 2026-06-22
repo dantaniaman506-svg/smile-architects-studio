@@ -16,15 +16,16 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-import clinicExterior from "@/assets/clinic-exterior.jpg.asset.json";
-import treatmentRoom1 from "@/assets/treatment-room-1.jpg.asset.json";
-import treatmentRoom2 from "@/assets/treatment-room-2.jpg.asset.json";
-import treatmentRoom3 from "@/assets/treatment-room-3.jpg.asset.json";
-import equipment from "@/assets/equipment.jpg.asset.json";
-import consultation1 from "@/assets/consultation-1.jpg.asset.json";
-import consultation2 from "@/assets/consultation-2.jpg.asset.json";
-import toothPen from "@/assets/tooth-pen-stand.jpg.asset.json";
-import doctor from "@/assets/doctor.jpg.asset.json";
+const doctorImg = "/images/doctor.jpg";
+const clinicExteriorImg = "/images/clinic-exterior.jpg";
+const treatment1Img = "/images/treatment-room-1.jpg";
+const treatment2Img = "/images/treatment-room-2.jpg";
+const treatment3Img = "/images/treatment-room-3.jpg";
+const consultation1Img = "/images/consultation-1.jpg";
+const consultation2Img = "/images/consultation-2.jpg";
+const toothPenImg = "/images/tooth-pen.jpg";
+
+export { doctorImg, clinicExteriorImg, treatment1Img, treatment2Img, treatment3Img };
 
 export interface Treatment {
   slug: string;
@@ -44,7 +45,7 @@ export const treatments: Treatment[] = [
     title: "Dental Implants",
     short:
       "Permanent, natural-looking replacements for missing teeth using modern implant technology — designed to restore both function and confidence.",
-    image: equipment.url,
+    image: "",
     benefits: [
       "Looks and feels like a natural tooth",
       "Preserves jawbone and facial structure",
@@ -68,7 +69,7 @@ export const treatments: Treatment[] = [
     title: "Root Canal Treatment (RCT)",
     short:
       "Painless single-sitting and multi-sitting root canals to save infected teeth, relieve pain and restore healthy function.",
-    image: treatmentRoom1.url,
+    image: "",
     benefits: [
       "Saves your natural tooth",
       "Eliminates infection and pain",
@@ -92,7 +93,7 @@ export const treatments: Treatment[] = [
     title: "Braces & Clear Aligners",
     short:
       "Straighten teeth and correct bite issues with traditional braces or near-invisible clear aligners — for kids, teens and adults.",
-    image: treatmentRoom2.url,
+    image: "",
     benefits: [
       "Straighter, more confident smile",
       "Better bite and easier cleaning",
@@ -116,7 +117,7 @@ export const treatments: Treatment[] = [
     title: "Crowns & Bridges",
     short:
       "High-quality crowns and bridges to restore damaged or missing teeth — comfortable, natural-looking and built to last.",
-    image: treatmentRoom3.url,
+    image: "",
     benefits: [
       "Restores strength and shape",
       "Natural tooth-coloured finish",
@@ -140,7 +141,7 @@ export const treatments: Treatment[] = [
     title: "Teeth Whitening",
     short:
       "Professional in-office whitening for a noticeably brighter, more confident smile — safe, fast and effective.",
-    image: consultation1.url,
+    image: "",
     benefits: [
       "Visibly whiter teeth in one sitting",
       "Safe, dentist-supervised procedure",
@@ -164,7 +165,7 @@ export const treatments: Treatment[] = [
     title: "Scaling & Polishing",
     short:
       "Professional ultrasonic cleaning to remove plaque, tartar and stains — keeping gums healthy and breath fresh.",
-    image: consultation2.url,
+    image: "",
     benefits: [
       "Removes hardened tartar safely",
       "Prevents gum disease and cavities",
@@ -188,7 +189,7 @@ export const treatments: Treatment[] = [
     title: "Tooth-Coloured Fillings",
     short:
       "Aesthetic, mercury-free composite fillings for cavities and chipped teeth — natural-looking and durable.",
-    image: equipment.url,
+    image: "",
     benefits: [
       "Matches your natural tooth colour",
       "Restores tooth strength",
@@ -212,7 +213,7 @@ export const treatments: Treatment[] = [
     title: "Tooth Extraction",
     short:
       "Safe, comfortable removal of damaged, loose or problematic teeth — including simple and surgical extractions.",
-    image: treatmentRoom1.url,
+    image: "",
     benefits: [
       "Relieves pain quickly",
       "Prevents further infection",
@@ -236,7 +237,7 @@ export const treatments: Treatment[] = [
     title: "Dentures",
     short:
       "Complete and partial dentures crafted for comfort, function and a natural appearance — restoring your smile and confidence.",
-    image: consultation1.url,
+    image: "",
     benefits: [
       "Comfortable, well-fitted design",
       "Restores chewing and speech",
@@ -260,7 +261,7 @@ export const treatments: Treatment[] = [
     title: "Pediatric Dentistry",
     short:
       "Gentle, child-friendly dental care for infants, kids and teens — building positive dental habits from the start.",
-    image: treatmentRoom2.url,
+    image: "",
     benefits: [
       "Friendly, fear-free environment",
       "Preventive care and education",
@@ -284,7 +285,7 @@ export const treatments: Treatment[] = [
     title: "Cosmetic Dentistry",
     short:
       "Smile makeovers including veneers, bonding, whitening and aesthetic re-shaping — designed around your features.",
-    image: doctor.url,
+    image: "",
     benefits: [
       "Custom smile design",
       "Long-lasting, natural finish",
@@ -308,7 +309,7 @@ export const treatments: Treatment[] = [
     title: "Digital X-Ray",
     short:
       "Instant, high-resolution digital X-rays for accurate diagnosis with up to 80% less radiation than traditional X-rays.",
-    image: equipment.url,
+    image: "",
     benefits: [
       "Up to 80% lower radiation",
       "Instant on-screen results",
@@ -332,7 +333,7 @@ export const treatments: Treatment[] = [
     title: "Dental Consultation",
     short:
       "A detailed oral evaluation and personalised treatment plan, so you know exactly what your smile needs.",
-    image: consultation2.url,
+    image: "",
     benefits: [
       "Detailed oral health check",
       "Personalised treatment plan",
@@ -356,7 +357,7 @@ export const treatments: Treatment[] = [
     title: "Smile Makeover",
     short:
       "A complete transformation combining whitening, veneers, alignment and shaping — for the smile you've always wanted.",
-    image: doctor.url,
+    image: "",
     benefits: [
       "Tailored to your face and personality",
       "Combines multiple treatments",
@@ -385,15 +386,14 @@ export interface GalleryItem {
 }
 
 export const galleryItems: GalleryItem[] = [
-  { id: 1, src: clinicExterior.url, alt: "The Tooth Wellness Dental Clinic exterior in Kharar", category: "clinic", aspect: "portrait" },
-  { id: 2, src: treatmentRoom1.url, alt: "Modern dental treatment room with advanced chair", category: "treatment-room", aspect: "portrait" },
-  { id: 3, src: doctor.url, alt: "Dr. Manisha, BDS — Dental Surgeon", category: "clinic", aspect: "portrait" },
-  { id: 4, src: equipment.url, alt: "Advanced dental equipment and digital X-ray", category: "equipment", aspect: "portrait" },
-  { id: 5, src: consultation1.url, alt: "Consultation desk with framed certifications", category: "clinic", aspect: "portrait" },
-  { id: 6, src: treatmentRoom2.url, alt: "Sterile, comfortable dental treatment room", category: "treatment-room", aspect: "portrait" },
-  { id: 7, src: consultation2.url, alt: "Patient consultation seating area", category: "clinic", aspect: "portrait" },
-  { id: 8, src: treatmentRoom3.url, alt: "Dental chair with overhead lighting and monitor", category: "treatment-room", aspect: "portrait" },
-  { id: 9, src: toothPen.url, alt: "Branded Dr. Manisha tooth-shaped desk accessory", category: "branding", aspect: "portrait" },
+  { id: 1, src: clinicExteriorImg, alt: "The Tooth Wellness Dental Clinic exterior in Kharar", category: "clinic", aspect: "portrait" },
+  { id: 2, src: treatment1Img, alt: "Modern dental treatment room — wide view with mirror", category: "treatment-room", aspect: "portrait" },
+  { id: 3, src: doctorImg, alt: "Dr. Manisha, BDS — Dental Surgeon", category: "clinic", aspect: "portrait" },
+  { id: 4, src: treatment3Img, alt: "Dental chair and equipment setup", category: "equipment", aspect: "portrait" },
+  { id: 5, src: consultation2Img, alt: "Consultation desk with framed certifications", category: "clinic", aspect: "portrait" },
+  { id: 6, src: treatment2Img, alt: "Treatment room with dental chair and overhead monitor", category: "treatment-room", aspect: "portrait" },
+  { id: 7, src: consultation1Img, alt: "Doctor's consultation seating area", category: "clinic", aspect: "portrait" },
+  { id: 8, src: toothPenImg, alt: "Branded Dr. Manisha tooth-shaped desk accessory", category: "branding", aspect: "portrait" },
 ];
 
 export interface Review {
@@ -424,7 +424,20 @@ export const stats = [
   { value: "100%", label: "Painless Care" },
 ];
 
-import { Award, HeartHandshake, ShieldCheck as Shield2, Clock, Users, Wand2 as Wand, Stars, Baby as BabyIcon, IndianRupee, Sparkles as SparklesIcon, Microscope, ThumbsUp } from "lucide-react";
+import {
+  Award,
+  HeartHandshake,
+  ShieldCheck as Shield2,
+  Clock,
+  Users,
+  Wand2 as Wand,
+  Stars,
+  Baby as BabyIcon,
+  IndianRupee,
+  Sparkles as SparklesIcon,
+  Microscope,
+  ThumbsUp,
+} from "lucide-react";
 
 export const features = [
   { icon: Award, title: "Experienced Dentist", desc: "Treatments led by Dr. Manisha (BDS) with years of clinical expertise." },

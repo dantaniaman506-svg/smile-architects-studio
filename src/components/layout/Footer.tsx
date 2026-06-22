@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Logo } from "@/components/ui-bits/Logo";
 import {
   clinicName,
@@ -87,10 +87,9 @@ export function Footer() {
 
         <div className="mt-12 pt-6 border-t border-accent-foreground/10 text-xs text-accent-foreground/60 flex flex-col md:flex-row gap-2 justify-between">
           <p>© {new Date().getFullYear()} {clinicName}. All rights reserved.</p>
-          <p>Designed with care for patients in Kharar, Mohali & beyond.</p>
+          <p>Designed with care for patients in Kharar, Mohali &amp; beyond.</p>
         </div>
 
-        {/* invisible filler so mobile bottom nav doesn't overlap last line */}
         <div className="md:hidden h-16" aria-hidden />
         <ul className="sr-only">
           {hours.map((h) => (

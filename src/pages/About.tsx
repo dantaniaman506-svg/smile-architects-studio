@@ -1,32 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { Award, GraduationCap, HeartHandshake, ShieldCheck, Calendar, MessageCircle } from "lucide-react";
-
 import { SectionLabel } from "@/components/ui-bits/SectionLabel";
 import { Reveal } from "@/components/ui-bits/Reveal";
-import {
-  clinicName,
-  clinicShort,
-  doctorName,
-  doctorCredentials,
-  city,
-  whatsappLink,
-} from "@/lib/site";
-
-import doctor from "@/assets/doctor.jpg.asset.json";
-
-export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: `About ${doctorName} BDS | ${clinicShort}, ${city}` },
-      { name: "description", content: `Meet ${doctorName} (${doctorCredentials}) — dental surgeon and founder of ${clinicShort}. Learn about her training, philosophy and approach to patient care.` },
-      { property: "og:title", content: `About ${doctorName} — ${clinicShort}` },
-      { property: "og:description", content: `Dental surgeon dedicated to gentle, modern, patient-first care in ${city}.` },
-      { property: "og:url", content: "/about" },
-    ],
-    links: [{ rel: "canonical", href: "/about" }],
-  }),
-  component: AboutPage,
-});
+import { clinicName, clinicShort, doctorName, doctorCredentials, city, whatsappLink } from "@/lib/site";
+import { doctorImg } from "@/lib/data";
 
 const credentials = [
   { icon: GraduationCap, title: "BDS Graduate", desc: "Bachelor of Dental Surgery with strong clinical foundation." },
@@ -46,7 +22,7 @@ const specializations = [
   "Teeth Whitening",
 ];
 
-function AboutPage() {
+export default function About() {
   return (
     <div className="px-5 md:px-8">
       <section className="mx-auto max-w-6xl pt-4 pb-16 md:pb-24 grid md:grid-cols-2 gap-10 md:gap-16 items-center">
@@ -54,7 +30,7 @@ function AboutPage() {
           <div className="relative">
             <div className="absolute inset-0 gradient-accent rounded-[2rem] -rotate-3" aria-hidden />
             <img
-              src={doctor.url}
+              src={doctorImg}
               alt={`${doctorName}, ${doctorCredentials}`}
               className="relative w-full aspect-[4/5] object-cover rounded-[2rem] shadow-image"
               loading="eager"
