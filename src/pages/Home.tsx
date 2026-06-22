@@ -9,6 +9,10 @@ import {
   MapPin,
   Phone,
   Sparkles,
+  ShieldCheck,
+  Clock,
+  Heart,
+  Award,
 } from "lucide-react";
 
 import { SectionLabel } from "@/components/ui-bits/SectionLabel";
@@ -39,6 +43,7 @@ export default function Home() {
   return (
     <div>
       <Hero />
+      <TrustStrip />
       <DoctorIntro />
       <StatsRow />
       <WhyChooseUs />
@@ -134,6 +139,51 @@ function Hero() {
             </motion.div>
           </div>
         </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   SECTION 1.5 — Trust strip
+───────────────────────────────────────────── */
+const trustItems = [
+  { icon: Star,        label: "5.0 Google Rating" },
+  { icon: Heart,       label: "2000+ Happy Patients" },
+  { icon: ShieldCheck, label: "Sterilised & Safe" },
+  { icon: Clock,       label: "Mon–Sat, 10am–8pm" },
+  { icon: Award,       label: "Certified BDS Doctor" },
+  { icon: Sparkles,    label: "Painless Treatments" },
+  { icon: MapPin,      label: "Kharar, Punjab" },
+];
+
+function TrustStrip() {
+  const repeated = [...trustItems, ...trustItems];
+  return (
+    <section className="py-10 md:py-14 overflow-hidden">
+      <div className="relative">
+        <motion.div
+          className="flex gap-4 w-max"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ repeat: Infinity, duration: 28, ease: "linear" }}
+        >
+          {repeated.map((item, i) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={i}
+                className="flex items-center gap-2.5 rounded-full border border-border bg-card px-5 py-3 shadow-card shrink-0"
+              >
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-accent-soft">
+                  <Icon className="h-3.5 w-3.5 text-primary" />
+                </span>
+                <span className="text-sm font-semibold text-accent whitespace-nowrap">{item.label}</span>
+              </div>
+            );
+          })}
+        </motion.div>
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-background to-transparent z-10" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-background to-transparent z-10" />
       </div>
     </section>
   );
