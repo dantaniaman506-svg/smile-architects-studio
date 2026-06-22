@@ -31,7 +31,7 @@ import {
   treatments,
   galleryItems,
   doctorImg,
-  clinicExteriorImg,
+  clinicInteriorImg,
   treatment1Img,
 } from "@/lib/data";
 
@@ -39,7 +39,6 @@ export default function Home() {
   return (
     <div>
       <Hero />
-      <ClinicBanner />
       <DoctorIntro />
       <StatsRow />
       <WhyChooseUs />
@@ -112,19 +111,19 @@ function Hero() {
           </div>
         </Reveal>
 
-        <Reveal delay={0.1}>
+        <Reveal delay={0.12}>
           <div className="relative">
             <div className="absolute inset-0 gradient-accent rounded-[2rem] rotate-3" aria-hidden />
             <img
-              src={doctorImg}
-              alt={`${doctorName}, Dental Surgeon at ${clinicShort}`}
+              src={clinicInteriorImg}
+              alt={`Treatment room at ${clinicShort}`}
               className="relative rounded-[2rem] w-full aspect-[4/5] object-cover shadow-image"
               loading="eager"
             />
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
+              initial={{ opacity: 0, y: 14, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ delay: 0.6, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="absolute -bottom-5 -left-3 md:left-6 bg-card rounded-2xl p-4 shadow-soft border border-border max-w-[200px]"
             >
               <div className="flex items-center gap-1 text-primary">
@@ -135,29 +134,6 @@ function Hero() {
             </motion.div>
           </div>
         </Reveal>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────
-   SECTION 2 — Clinic exterior banner
-───────────────────────────────────────────── */
-function ClinicBanner() {
-  return (
-    <section className="px-5 md:px-8">
-      <div className="mx-auto max-w-6xl relative overflow-hidden rounded-[2rem] shadow-image">
-        <img
-          src={clinicExteriorImg}
-          alt={`${clinicShort} clinic in ${city}`}
-          className="w-full h-[240px] md:h-[420px] object-cover"
-          loading="lazy"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-accent/70 via-accent/10 to-transparent" />
-        <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 rounded-2xl bg-card/95 backdrop-blur px-5 py-3 shadow-soft border border-border">
-          <p className="text-[11px] uppercase tracking-[0.18em] text-primary font-semibold">Trusted Care</p>
-          <p className="text-base md:text-lg font-bold text-accent">Modern Clinic · {city}</p>
-        </div>
       </div>
     </section>
   );

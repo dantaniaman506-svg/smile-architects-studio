@@ -18,6 +18,7 @@ import {
 
 const doctorImg = "/images/doctor.jpg";
 const clinicExteriorImg = "/images/clinic-exterior.jpg";
+const clinicInteriorImg = "/images/clinic-interior.jpg";
 const treatment1Img = "/images/treatment-room-1.jpg";
 const treatment2Img = "/images/treatment-room-2.jpg";
 const treatment3Img = "/images/treatment-room-3.jpg";
@@ -25,7 +26,7 @@ const consultation1Img = "/images/consultation-1.jpg";
 const consultation2Img = "/images/consultation-2.jpg";
 const toothPenImg = "/images/tooth-pen.jpg";
 
-export { doctorImg, clinicExteriorImg, treatment1Img, treatment2Img, treatment3Img };
+export { doctorImg, clinicExteriorImg, clinicInteriorImg, treatment1Img, treatment2Img, treatment3Img };
 
 export interface Treatment {
   slug: string;
