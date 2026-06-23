@@ -21,12 +21,12 @@ export function Header() {
 
         {/* Logo + Name */}
         <Link to="/" className="flex items-center gap-3 pl-0.5 shrink-0 group">
-          <Logo size={40} />
-          <div className="flex flex-col leading-tight">
-            <span className="text-[14px] font-extrabold tracking-tight text-accent group-hover:text-primary transition-colors">
+          <Logo size={38} />
+          <div className="hidden sm:flex flex-col leading-tight">
+            <span className="text-[13.5px] font-extrabold tracking-tight text-accent group-hover:text-primary transition-colors">
               {clinicShort}
             </span>
-            <span className="text-[9.5px] uppercase tracking-[0.2em] text-primary font-semibold">
+            <span className="text-[9px] uppercase tracking-[0.2em] text-primary font-semibold">
               {tagline}
             </span>
           </div>
