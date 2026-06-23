@@ -117,11 +117,13 @@ function Hero() {
         <Reveal delay={0.12}>
           <div className="relative">
             <div className="absolute inset-0 gradient-accent rounded-[2rem] rotate-3" aria-hidden />
-            <img
+            <motion.img
               src={clinicInteriorImg}
               alt={`Treatment room at ${clinicShort}`}
               className="relative rounded-[2rem] w-full aspect-[4/5] object-cover shadow-image"
               loading="eager"
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
             />
             <motion.div
               initial={{ opacity: 0, y: 14, scale: 0.95 }}
