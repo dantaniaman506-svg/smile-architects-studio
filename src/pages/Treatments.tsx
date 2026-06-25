@@ -90,7 +90,7 @@ function TreatmentCard({ t, index }: { t: (typeof treatments)[number]; index: nu
             <img
               src={t.image}
               alt={t.title}
-              className="w-full h-full object-contain bg-neutral-50"
+              className={`w-full h-full ${index >= 12 ? "object-contain bg-neutral-50" : "object-cover scale-105"}`}
               loading="lazy"
             />
           ) : (
