@@ -3,7 +3,7 @@ import { telLink, whatsappLink } from "@/lib/site";
 
 export function FloatingActions() {
   return (
-    <div className="fixed right-4 bottom-20 md:bottom-6 z-30 flex flex-col gap-3">
+    <div className="fixed right-4 bottom-28 md:bottom-6 z-30 flex flex-col gap-3">
       <a
         href={whatsappLink("Hi Dr. Manisha, I would like to book an appointment.")}
         target="_blank"
