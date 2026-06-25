@@ -85,12 +85,12 @@ function TreatmentCard({ t, index }: { t: (typeof treatments)[number]; index: nu
   return (
     <Reveal>
       <article id={`treatment-${t.slug}`} className="scroll-mt-32">
-        <div className="relative overflow-hidden rounded-3xl shadow-image aspect-[4/3]">
+        <div className="relative overflow-hidden rounded-3xl shadow-image aspect-[3/4]">
           {t.image ? (
             <img
               src={t.image}
               alt={t.title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain bg-neutral-50"
               loading="lazy"
             />
           ) : (
