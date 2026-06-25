@@ -366,8 +366,25 @@ function TreatmentsPreview() {
                   to={`/treatments#treatment-${t.slug}`}
                   className="group block rounded-3xl bg-card border border-border overflow-hidden shadow-card hover:shadow-soft hover:-translate-y-1 transition"
                 >
-                  <div className="relative aspect-[4/3] overflow-hidden gradient-gold flex items-center justify-center">
-                    <I className="h-14 w-14 text-white/60" />
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    {t.image ? (
+                      <>
+                        <img
+                          src={t.image}
+                          alt={t.title}
+                          className="w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-500"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-accent/60 via-transparent to-transparent" />
+                        <span className="absolute bottom-2 left-2 flex items-center justify-center h-8 w-8 rounded-full bg-white/20 backdrop-blur-sm">
+                          <I className="h-4 w-4 text-white" />
+                        </span>
+                      </>
+                    ) : (
+                      <div className="w-full h-full gradient-gold flex items-center justify-center">
+                        <I className="h-14 w-14 text-white/60" />
+                      </div>
+                    )}
                   </div>
                   <div className="p-5">
                     <h3 className="text-lg font-bold text-accent">{t.title}</h3>
