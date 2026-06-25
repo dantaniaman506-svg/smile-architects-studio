@@ -46,7 +46,7 @@ export const treatments: Treatment[] = [
     title: "Dental Implants",
     short:
       "Permanent, natural-looking replacements for missing teeth using modern implant technology — designed to restore both function and confidence.",
-    image: "",
+    image: "/images/treatments/dental-implants.jpg",
     benefits: [
       "Looks and feels like a natural tooth",
       "Preserves jawbone and facial structure",
@@ -70,7 +70,7 @@ export const treatments: Treatment[] = [
     title: "Root Canal Treatment (RCT)",
     short:
       "Painless single-sitting and multi-sitting root canals to save infected teeth, relieve pain and restore healthy function.",
-    image: "",
+    image: "/images/treatments/root-canal.jpg",
     benefits: [
       "Saves your natural tooth",
       "Eliminates infection and pain",
@@ -94,7 +94,7 @@ export const treatments: Treatment[] = [
     title: "Braces & Clear Aligners",
     short:
       "Straighten teeth and correct bite issues with traditional braces or near-invisible clear aligners — for kids, teens and adults.",
-    image: "",
+    image: "/images/treatments/orthodontic-treatment.jpg",
     benefits: [
       "Straighter, more confident smile",
       "Better bite and easier cleaning",
@@ -118,7 +118,7 @@ export const treatments: Treatment[] = [
     title: "Crowns & Bridges",
     short:
       "High-quality crowns and bridges to restore damaged or missing teeth — comfortable, natural-looking and built to last.",
-    image: "",
+    image: "/images/treatments/crowns-and-bridges.jpg",
     benefits: [
       "Restores strength and shape",
       "Natural tooth-coloured finish",
@@ -142,7 +142,7 @@ export const treatments: Treatment[] = [
     title: "Teeth Whitening",
     short:
       "Professional in-office whitening for a noticeably brighter, more confident smile — safe, fast and effective.",
-    image: "",
+    image: "/images/treatments/teeth-whitening.jpg",
     benefits: [
       "Visibly whiter teeth in one sitting",
       "Safe, dentist-supervised procedure",
@@ -166,7 +166,7 @@ export const treatments: Treatment[] = [
     title: "Scaling & Polishing",
     short:
       "Professional ultrasonic cleaning to remove plaque, tartar and stains — keeping gums healthy and breath fresh.",
-    image: "",
+    image: "/images/treatments/scaling-polishing.jpg",
     benefits: [
       "Removes hardened tartar safely",
       "Prevents gum disease and cavities",
@@ -190,7 +190,7 @@ export const treatments: Treatment[] = [
     title: "Tooth-Coloured Fillings",
     short:
       "Aesthetic, mercury-free composite fillings for cavities and chipped teeth — natural-looking and durable.",
-    image: "",
+    image: "/images/treatments/dental-filling.jpg",
     benefits: [
       "Matches your natural tooth colour",
       "Restores tooth strength",
@@ -214,7 +214,7 @@ export const treatments: Treatment[] = [
     title: "Tooth Extraction",
     short:
       "Safe, comfortable removal of damaged, loose or problematic teeth — including simple and surgical extractions.",
-    image: "",
+    image: "/images/treatments/tooth-extraction.jpg",
     benefits: [
       "Relieves pain quickly",
       "Prevents further infection",
@@ -238,7 +238,7 @@ export const treatments: Treatment[] = [
     title: "Dentures",
     short:
       "Complete and partial dentures crafted for comfort, function and a natural appearance — restoring your smile and confidence.",
-    image: "",
+    image: "/images/treatments/dentures.jpg",
     benefits: [
       "Comfortable, well-fitted design",
       "Restores chewing and speech",
@@ -262,7 +262,7 @@ export const treatments: Treatment[] = [
     title: "Pediatric Dentistry",
     short:
       "Gentle, child-friendly dental care for infants, kids and teens — building positive dental habits from the start.",
-    image: "",
+    image: "/images/treatments/pediatric-dentistry.jpg",
     benefits: [
       "Friendly, fear-free environment",
       "Preventive care and education",
@@ -286,7 +286,7 @@ export const treatments: Treatment[] = [
     title: "Cosmetic Dentistry",
     short:
       "Smile makeovers including veneers, bonding, whitening and aesthetic re-shaping — designed around your features.",
-    image: "",
+    image: "/images/treatments/cosmetic-dentistry.jpg",
     benefits: [
       "Custom smile design",
       "Long-lasting, natural finish",
@@ -310,7 +310,7 @@ export const treatments: Treatment[] = [
     title: "Digital X-Ray",
     short:
       "Instant, high-resolution digital X-rays for accurate diagnosis with up to 80% less radiation than traditional X-rays.",
-    image: "",
+    image: "/images/treatments/digital-x-ray.jpg",
     benefits: [
       "Up to 80% lower radiation",
       "Instant on-screen results",
@@ -334,7 +334,7 @@ export const treatments: Treatment[] = [
     title: "Dental Consultation",
     short:
       "A detailed oral evaluation and personalised treatment plan, so you know exactly what your smile needs.",
-    image: "",
+    image: "/images/treatments/consultation.jpg",
     benefits: [
       "Detailed oral health check",
       "Personalised treatment plan",
@@ -358,7 +358,7 @@ export const treatments: Treatment[] = [
     title: "Smile Makeover",
     short:
       "A complete transformation combining whitening, veneers, alignment and shaping — for the smile you've always wanted.",
-    image: "",
+    image: "/images/treatments/smile-makeover.jpg",
     benefits: [
       "Tailored to your face and personality",
       "Combines multiple treatments",

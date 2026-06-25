@@ -85,8 +85,20 @@ function TreatmentCard({ t, index }: { t: (typeof treatments)[number]; index: nu
   return (
     <Reveal>
       <article id={`treatment-${t.slug}`} className="scroll-mt-32">
-        <div className="relative overflow-hidden rounded-3xl shadow-image aspect-[4/3] gradient-gold flex items-center justify-center">
-          <Icon className="h-20 w-20 text-white/50" />
+        <div className="relative overflow-hidden rounded-3xl shadow-image aspect-[4/3]">
+          {t.image ? (
+            <img
+              src={t.image}
+              alt={t.title}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          ) : (
+            <div className="w-full h-full gradient-gold flex items-center justify-center">
+              <Icon className="h-20 w-20 text-white/50" />
+            </div>
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-accent/60 via-transparent to-transparent" />
           <div className="absolute top-4 left-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-background/95 text-primary shadow-card">
             <Icon className="h-6 w-6" />
           </div>
