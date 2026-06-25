@@ -17,17 +17,17 @@ export function Header() {
 
   return (
     <header className="fixed top-3 left-1/2 z-40 -translate-x-1/2 w-[min(1100px,calc(100%-1.25rem))]">
-      <div className="flex items-center justify-between gap-2 rounded-full border border-border/70 bg-background/90 px-3 py-2 backdrop-blur-xl shadow-soft">
+      <div className="flex items-center justify-between gap-2 rounded-full border border-border/50 bg-background/60 px-3 py-2 backdrop-blur-2xl shadow-soft">
 
         {/* Logo + Name */}
         <Link to="/" className="flex items-center gap-3 pl-0.5 shrink-0 group">
           <Logo size={38} />
-          <div className="hidden sm:flex flex-col leading-tight">
+          <div className="flex flex-col leading-tight">
             <span className="text-[13.5px] font-extrabold tracking-tight text-accent group-hover:text-primary transition-colors">
               {clinicShort}
             </span>
             <span className="text-[9px] uppercase tracking-[0.2em] text-primary font-semibold">
-              {tagline}
+              CLINIC
             </span>
           </div>
         </Link>
@@ -57,10 +57,10 @@ export function Header() {
           <a
             href={telLink}
             aria-label={`Call ${phoneDisplay}`}
-            className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-2 text-[12px] font-semibold text-primary hover:bg-primary/20 transition"
+            className="hidden md:inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-2 text-[12px] font-semibold text-primary hover:bg-primary/20 transition"
           >
             <Phone className="h-3.5 w-3.5" />
-            <span className="hidden sm:inline">Call Now</span>
+            <span>Call Now</span>
           </a>
 
           <Link
