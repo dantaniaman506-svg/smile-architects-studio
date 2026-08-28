@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { Logo } from "@/components/ui-bits/Logo";
-import { clinicShort, tagline, whatsappLink, telLink, phoneDisplay } from "@/lib/site";
 import { Calendar, Phone } from "lucide-react";
+import { useContent } from "@/lib/content";
 
 const navItems = [
   { to: "/", label: "Home" },
@@ -14,6 +14,7 @@ const navItems = [
 
 export function Header() {
   const { pathname } = useLocation();
+  const { content: { settings } } = useContent();
 
   return (
     <header className="fixed top-3 left-1/2 z-40 -translate-x-1/2 w-[min(1100px,calc(100%-1.25rem))]">
@@ -24,7 +25,7 @@ export function Header() {
           <Logo size={38} />
           <div className="flex flex-col leading-tight">
             <span className="text-[13.5px] font-extrabold tracking-tight text-accent group-hover:text-primary transition-colors">
-              {clinicShort}
+              {settings.clinicShort}
             </span>
             <span className="text-[9px] uppercase tracking-[0.2em] text-primary font-semibold">
               CLINIC
@@ -55,8 +56,8 @@ export function Header() {
         {/* CTA buttons */}
         <div className="flex items-center gap-2 shrink-0">
           <a
-            href={telLink}
-            aria-label={`Call ${phoneDisplay}`}
+            href={`tel:${settings.phone}`}
+            aria-label={`Call ${settings.phoneDisplay}`}
             className="hidden md:inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-2 text-[12px] font-semibold text-primary hover:bg-primary/20 transition"
           >
             <Phone className="h-3.5 w-3.5" />

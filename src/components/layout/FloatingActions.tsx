@@ -1,11 +1,12 @@
 import { Phone, MessageCircle } from "lucide-react";
-import { telLink, whatsappLink } from "@/lib/site";
+import { useContent } from "@/lib/content";
 
 export function FloatingActions() {
+  const { content: { settings } } = useContent();
   return (
     <div className="fixed right-4 bottom-28 md:bottom-6 z-30 flex flex-col gap-3">
       <a
-        href={whatsappLink("Hi Dr. Manisha, I would like to book an appointment.")}
+        href={`https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(`Hi ${settings.doctorName}, I would like to book an appointment.`)}`}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="WhatsApp"
@@ -14,7 +15,7 @@ export function FloatingActions() {
         <MessageCircle className="h-5 w-5" />
       </a>
       <a
-        href={telLink}
+        href={`tel:${settings.phone}`}
         aria-label="Call"
         className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-gold hover:scale-105 transition"
       >

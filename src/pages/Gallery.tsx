@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SectionLabel } from "@/components/ui-bits/SectionLabel";
-import { galleryItems, galleryCategories } from "@/lib/data";
-import { clinicShort } from "@/lib/site";
+import { galleryCategories } from "@/lib/data";
+import { useContent } from "@/lib/content";
 
 export default function Gallery() {
+  const { publicContent: content } = useContent();
+  const { settings, gallery: galleryItems } = content;
   const [cat, setCat] = useState<string>("all");
   const filtered = cat === "all" ? galleryItems : galleryItems.filter((g) => g.category === cat);
 
@@ -17,7 +19,7 @@ export default function Gallery() {
           <span className="text-primary italic font-serif">built around you.</span>
         </h1>
         <p className="mt-5 text-muted-foreground max-w-2xl">
-          Step inside {clinicShort} — hygienic treatment rooms, advanced equipment and a warm,
+           Step inside {settings.clinicShort} — hygienic treatment rooms, advanced equipment and a warm,
           welcoming environment.
         </p>
 

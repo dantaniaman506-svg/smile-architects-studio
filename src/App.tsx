@@ -9,26 +9,35 @@ import Treatments from "./pages/Treatments";
 import Gallery from "./pages/Gallery";
 import Reviews from "./pages/Reviews";
 import Contact from "./pages/Contact";
+import Admin from "./pages/Admin";
+import { ContentProvider } from "./lib/content";
 
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen flex flex-col bg-background text-foreground">
-        <Header />
-        <main className="flex-1 pt-24 md:pt-28">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/treatments" element={<Treatments />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/reviews" element={<Reviews />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </main>
-        <Footer />
-        <FloatingActions />
-        <BottomNav />
-      </div>
+      <ContentProvider>
+        <Routes>
+          <Route path="/admin/*" element={<Admin />} />
+          <Route path="*" element={
+            <div className="min-h-screen flex flex-col bg-background text-foreground">
+              <Header />
+              <main className="flex-1 pt-24 md:pt-28">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/treatments" element={<Treatments />} />
+                  <Route path="/gallery" element={<Gallery />} />
+                  <Route path="/reviews" element={<Reviews />} />
+                  <Route path="/contact" element={<Contact />} />
+                </Routes>
+              </main>
+              <Footer />
+              <FloatingActions />
+              <BottomNav />
+            </div>
+          } />
+        </Routes>
+      </ContentProvider>
     </BrowserRouter>
   );
 }

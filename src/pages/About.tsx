@@ -1,8 +1,7 @@
 import { Award, GraduationCap, HeartHandshake, ShieldCheck, Calendar, MessageCircle } from "lucide-react";
 import { SectionLabel } from "@/components/ui-bits/SectionLabel";
 import { Reveal } from "@/components/ui-bits/Reveal";
-import { clinicName, clinicShort, doctorName, doctorCredentials, city, whatsappLink } from "@/lib/site";
-import { doctorImg } from "@/lib/data";
+import { useContent } from "@/lib/content";
 
 const credentials = [
   { icon: GraduationCap, title: "BDS Graduate", desc: "Bachelor of Dental Surgery with strong clinical foundation." },
@@ -23,6 +22,10 @@ const specializations = [
 ];
 
 export default function About() {
+  const { publicContent: content } = useContent();
+  const { settings, about } = content;
+  const doctorImg = content.gallery.find((item) => item.alt.toLowerCase().includes("dr. manisha"))?.src ?? "/images/doctor.jpg";
+  const whatsappLink = (msg: string) => `https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(msg)}`;
   return (
     <div className="px-5 md:px-8">
       <section className="mx-auto max-w-6xl pt-4 pb-16 md:pb-24 grid md:grid-cols-2 gap-10 md:gap-16 items-center">
@@ -31,7 +34,7 @@ export default function About() {
             <div className="absolute inset-0 gradient-accent rounded-[2rem] -rotate-3" aria-hidden />
             <img
               src={doctorImg}
-              alt={`${doctorName}, ${doctorCredentials}`}
+              alt={`${settings.doctorName}, ${settings.doctorCredentials}`}
               className="relative w-full aspect-[4/5] object-cover rounded-[2rem] shadow-image"
               loading="eager"
             />
@@ -41,16 +44,15 @@ export default function About() {
           <div>
             <SectionLabel>About the Doctor</SectionLabel>
             <h1 className="mt-4 text-4xl md:text-6xl font-black text-accent">
-              {doctorName},{" "}
-              <span className="text-primary italic font-serif">{doctorCredentials}</span>
+              {settings.doctorName},{" "}
+              <span className="text-primary italic font-serif">{settings.doctorCredentials}</span>
             </h1>
             <p className="mt-5 text-muted-foreground leading-relaxed">
-              Founder and lead dental surgeon at {clinicName}, {doctorName} has built a reputation in
-              {" "}{city} for delivering painless, modern and genuinely caring dentistry. Her practice
-              is built around three values: clinical precision, patient comfort and complete transparency.
+              Founder and lead dental surgeon at {settings.clinicName}, {settings.doctorName} has built a reputation in
+              {" "}{settings.city} for delivering painless, modern and genuinely caring dentistry. {about.intro}
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
-              {specializations.map((s) => (
+              {about.specializations.map((s) => (
                 <span key={s} className="rounded-full bg-accent-soft text-accent px-3 py-1.5 text-xs font-semibold">
                   {s}
                 </span>
@@ -58,7 +60,7 @@ export default function About() {
             </div>
             <div className="mt-7 flex flex-wrap gap-3">
               <a
-                href={whatsappLink(`Hi ${doctorName}, I'd like to book an appointment.`)}
+                href={whatsappLink(`Hi ${settings.doctorName}, I'd like to book an appointment.`)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-gold hover:opacity-95 transition"
@@ -106,12 +108,10 @@ export default function About() {
         <div className="rounded-[2rem] gradient-accent p-8 md:p-14 shadow-card">
           <SectionLabel>Our Philosophy</SectionLabel>
           <blockquote className="mt-5 text-2xl md:text-4xl font-black text-accent leading-tight max-w-3xl">
-            "Every patient deserves dentistry that is{" "}
-            <span className="text-primary italic font-serif">gentle, honest and built around them.</span>"
+            "{about.philosophy}"
           </blockquote>
           <p className="mt-5 text-accent/80 max-w-2xl leading-relaxed">
-            From your first visit to long-term follow-ups, our team focuses on listening, explaining
-            options clearly and treating you the way we'd treat our own family.
+            {about.philosophyDetail}
           </p>
         </div>
       </section>

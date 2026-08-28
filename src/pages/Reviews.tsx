@@ -1,10 +1,11 @@
 import { Star, CheckCircle2 } from "lucide-react";
 import { SectionLabel } from "@/components/ui-bits/SectionLabel";
 import { Reveal } from "@/components/ui-bits/Reveal";
-import { reviews } from "@/lib/data";
-import { clinicShort, doctorName } from "@/lib/site";
+import { useContent } from "@/lib/content";
 
 export default function Reviews() {
+  const { publicContent: content } = useContent();
+  const { reviews, settings } = content;
   return (
     <div className="px-5 md:px-8">
       <div className="mx-auto max-w-6xl pt-4 pb-10">
@@ -26,7 +27,7 @@ export default function Reviews() {
               </p>
             </div>
             <p className="text-accent/80 leading-relaxed max-w-xl">
-              20+ verified 5-star Google reviews from patients who trusted {doctorName} with their
+               20+ verified 5-star Google reviews from patients who trusted {settings.doctorName} with their
               smile. Every review reflects our commitment to gentle, modern and personalised care.
             </p>
           </div>

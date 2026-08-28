@@ -18,26 +18,8 @@ import {
 import { SectionLabel } from "@/components/ui-bits/SectionLabel";
 import { Reveal } from "@/components/ui-bits/Reveal";
 import {
-  clinicShort,
-  doctorName,
-  doctorCredentials,
-  city,
-  whatsappLink,
-  telLink,
-  mapDirectionsUrl,
-  phoneDisplay,
 } from "@/lib/site";
-import {
-  features,
-  processSteps,
-  reviews,
-  stats,
-  treatments,
-  galleryItems,
-  doctorImg,
-  clinicInteriorImg,
-  treatment1Img,
-} from "@/lib/data";
+import { useContent } from "@/lib/content";
 
 export default function Home() {
   return (
@@ -60,19 +42,22 @@ export default function Home() {
    SECTION 1 — Original hero: text left, doctor photo right
 ───────────────────────────────────────────── */
 function Hero() {
+  const { publicContent: content } = useContent();
+  const { settings, home } = content;
+  const clinicInteriorImg = content.gallery.find((item) => item.alt.toLowerCase().includes("treatment room"))?.src ?? "/images/clinic-interior.jpg";
+  const whatsappLink = (msg: string) => `https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(msg)}`;
   return (
     <section className="relative">
       <div className="mx-auto max-w-6xl px-5 md:px-8 py-8 md:py-16 grid md:grid-cols-[1.15fr_1fr] gap-10 md:gap-14 items-center">
         <Reveal>
           <div>
-            <SectionLabel>Where Dentistry Meets Care</SectionLabel>
+            <SectionLabel>{home.heroEyebrow}</SectionLabel>
             <h1 className="mt-5 text-balance text-[40px] leading-[1.05] md:text-[64px] font-black tracking-tight text-accent">
-              Premium dental care,{" "}
-              <span className="italic font-serif text-primary">where your smile begins.</span>
+              {home.heroTitle}{" "}
+              <span className="italic font-serif text-primary">{home.heroAccent}</span>
             </h1>
             <p className="mt-5 text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl">
-              {clinicShort} is a 5-star rated clinic in {city}, led by {doctorName} ({doctorCredentials}).
-              Painless treatments, modern equipment and a warm, welcoming team — for every smile in the family.
+              {settings.clinicShort} {home.heroDescription} Led by {settings.doctorName} ({settings.doctorCredentials}), serving every smile in the family.
             </p>
 
             <div className="mt-7 flex flex-wrap gap-3">
@@ -97,7 +82,7 @@ function Hero() {
                 { icon: Star, text: "5.0 Google Rating" },
                 { icon: Sparkles, text: "Painless Care" },
                 { icon: CheckCircle2, text: "Sterilised Protocol" },
-                { icon: MapPin, text: `${city}, Punjab` },
+                { icon: MapPin, text: `${settings.city}, ${settings.region}` },
               ].map((p) => {
                 const I = p.icon;
                 return (
@@ -119,7 +104,7 @@ function Hero() {
             <div className="absolute inset-0 gradient-accent rounded-[2rem] rotate-3" aria-hidden />
             <motion.img
               src={clinicInteriorImg}
-              alt={`Treatment room at ${clinicShort}`}
+               alt={`Treatment room at ${settings.clinicShort}`}
               className="relative rounded-[2rem] w-full aspect-[4/5] object-cover shadow-image"
               loading="eager"
               animate={{ y: [0, -10, 0] }}
@@ -193,6 +178,9 @@ function TrustStrip() {
    SECTION 2 — Doctor intro: photo + text
 ───────────────────────────────────────────── */
 function DoctorIntro() {
+  const { publicContent: content } = useContent();
+  const { settings } = content;
+  const doctorImg = content.gallery.find((item) => item.alt.toLowerCase().includes("dr. manisha"))?.src ?? "/images/doctor.jpg";
   return (
     <section className="px-4 md:px-8 pb-14 md:pb-24">
       <div className="mx-auto max-w-6xl grid md:grid-cols-[1fr_1.15fr] gap-8 md:gap-14 items-center">
@@ -203,7 +191,7 @@ function DoctorIntro() {
             <div className="absolute inset-0 gradient-accent rounded-[2rem] rotate-2" aria-hidden />
             <img
               src={doctorImg}
-              alt={`${doctorName} — ${doctorCredentials}, ${clinicShort}`}
+              alt={`${settings.doctorName} — ${settings.doctorCredentials}, ${settings.clinicShort}`}
               className="relative w-full aspect-[4/5] object-cover rounded-[2rem] shadow-image"
               loading="lazy"
             />
@@ -215,8 +203,8 @@ function DoctorIntro() {
               transition={{ delay: 0.3 }}
               className="absolute -bottom-4 -right-2 md:right-6 bg-card rounded-2xl px-4 py-3 shadow-soft border border-border"
             >
-              <p className="text-[13px] font-black text-accent">{doctorName}</p>
-              <p className="text-[11px] text-primary font-semibold">{doctorCredentials} · Dental Surgeon</p>
+               <p className="text-[13px] font-black text-accent">{settings.doctorName}</p>
+               <p className="text-[11px] text-primary font-semibold">{settings.doctorCredentials} · Dental Surgeon</p>
             </motion.div>
           </div>
         </Reveal>
@@ -226,12 +214,12 @@ function DoctorIntro() {
           <div>
             <SectionLabel>Meet Your Doctor</SectionLabel>
             <h2 className="mt-4 text-3xl md:text-5xl font-black text-accent">
-              {doctorName},{" "}
-              <span className="italic font-serif text-primary">{doctorCredentials}</span>
+              {settings.doctorName},{" "}
+              <span className="italic font-serif text-primary">{settings.doctorCredentials}</span>
             </h2>
             <p className="mt-4 text-muted-foreground leading-relaxed">
-              Founder and lead dental surgeon at {clinicShort}, {doctorName} has built a reputation
-              across {city} for delivering <strong className="text-accent">painless, modern
+              Founder and lead dental surgeon at {settings.clinicShort}, {settings.doctorName} has built a reputation
+              across {settings.city} for delivering <strong className="text-accent">painless, modern
               and genuinely caring dentistry</strong>. Every patient is treated like family — from
               the first consultation to the final follow-up.
             </p>
@@ -261,7 +249,7 @@ function DoctorIntro() {
                 to="/about"
                 className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-background px-5 py-2.5 text-sm font-semibold text-accent hover:bg-accent-soft transition"
               >
-                About {doctorName} <ArrowRight className="h-4 w-4" />
+                 About {settings.doctorName} <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
           </div>
@@ -275,11 +263,12 @@ function DoctorIntro() {
    SECTION 3 — Stats row
 ───────────────────────────────────────────── */
 function StatsRow() {
+  const { publicContent: content } = useContent();
   return (
     <section className="px-4 md:px-8 pb-14 md:pb-20">
       <div className="mx-auto max-w-6xl rounded-3xl gradient-accent p-6 md:p-10 shadow-card">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {stats.map((s, i) => (
+           {content.stats.map((s, i) => (
             <Reveal key={s.label} delay={i * 0.05}>
               <div className="text-center">
                 <p className="text-3xl md:text-5xl font-black text-accent">{s.value}</p>
@@ -299,21 +288,23 @@ function StatsRow() {
    SECTION 4 — Why Choose Us
 ───────────────────────────────────────────── */
 function WhyChooseUs() {
+  const { publicContent: content } = useContent();
+  const { settings, home } = content;
   return (
     <section className="px-4 md:px-8 pb-14 md:pb-24">
       <div className="mx-auto max-w-6xl">
         <div className="max-w-2xl">
           <SectionLabel>Why Choose Us</SectionLabel>
           <h2 className="mt-4 text-3xl md:text-5xl font-black text-accent">
-            Care that's gentle,{" "}
-            <span className="text-primary italic font-serif">expertise that's modern.</span>
+             {home.whyTitle}{" "}
+             <span className="text-primary italic font-serif">{home.whyAccent}</span>
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Twelve reasons families across {city} make us their dental home.
+             A dozen reasons families across {settings.city} make us their dental home.
           </p>
         </div>
         <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-          {features.map((f, i) => {
+           {content.features.map((f, i) => {
             const I = f.icon;
             return (
               <Reveal key={f.title} delay={i * 0.03}>
@@ -337,7 +328,9 @@ function WhyChooseUs() {
    SECTION 5 — Treatments preview
 ───────────────────────────────────────────── */
 function TreatmentsPreview() {
-  const featured = treatments.slice(0, 6);
+  const { publicContent: content } = useContent();
+  const featured = content.treatments.slice(0, 6);
+  const { home } = content;
   return (
     <section className="px-4 md:px-8 pb-14 md:pb-20">
       <div className="mx-auto max-w-6xl">
@@ -345,8 +338,8 @@ function TreatmentsPreview() {
           <div className="max-w-2xl">
             <SectionLabel>Our Treatments</SectionLabel>
             <h2 className="mt-4 text-3xl md:text-5xl font-black text-accent">
-              Complete care for{" "}
-              <span className="text-primary italic font-serif">every smile.</span>
+               {home.treatmentTitle}{" "}
+               <span className="text-primary italic font-serif">{home.treatmentAccent}</span>
             </h2>
           </div>
           <Link
@@ -407,7 +400,9 @@ function TreatmentsPreview() {
    SECTION 6 — Gallery strip
 ───────────────────────────────────────────── */
 function GalleryStrip() {
-  const shots = galleryItems.slice(0, 6);
+  const { publicContent: content } = useContent();
+  const shots = content.gallery.slice(0, 6);
+  const { home } = content;
   return (
     <section className="px-4 md:px-8 pb-14 md:pb-24">
       <div className="mx-auto max-w-6xl">
@@ -415,8 +410,8 @@ function GalleryStrip() {
           <div className="max-w-2xl">
             <SectionLabel>Inside the Clinic</SectionLabel>
             <h2 className="mt-4 text-3xl md:text-5xl font-black text-accent">
-              A space designed for{" "}
-              <span className="text-primary italic font-serif">comfort & care.</span>
+               {home.galleryTitle}{" "}
+               <span className="text-primary italic font-serif">{home.galleryAccent}</span>
             </h2>
           </div>
           <Link
@@ -454,15 +449,17 @@ function GalleryStrip() {
    SECTION 7 — Reviews
 ───────────────────────────────────────────── */
 function ReviewsSection() {
-  const featured = reviews.slice(0, 3);
+  const { publicContent: content } = useContent();
+  const featured = content.reviews.slice(0, 3);
+  const { home } = content;
   return (
     <section className="px-4 md:px-8 pb-14 md:pb-20">
       <div className="mx-auto max-w-6xl">
         <div className="text-center max-w-2xl mx-auto">
           <SectionLabel>Patient Reviews</SectionLabel>
           <h2 className="mt-4 text-3xl md:text-5xl font-black text-accent">
-            Loved by our{" "}
-            <span className="text-primary italic font-serif">patients.</span>
+             {home.reviewsTitle}{" "}
+             <span className="text-primary italic font-serif">{home.reviewsAccent}</span>
           </h2>
           <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-card border border-border px-4 py-2 shadow-card">
             <div className="flex">
@@ -512,18 +509,20 @@ function ReviewsSection() {
    SECTION 8 — Patient journey
 ───────────────────────────────────────────── */
 function PatientJourney() {
+  const { publicContent: content } = useContent();
+  const { home } = content;
   return (
     <section className="px-4 md:px-8 pb-14 md:pb-24">
       <div className="mx-auto max-w-6xl">
         <div className="max-w-2xl">
           <SectionLabel>Your Journey</SectionLabel>
           <h2 className="mt-4 text-3xl md:text-5xl font-black text-accent">
-            Simple steps to a{" "}
-            <span className="text-primary italic font-serif">healthier smile.</span>
+             {home.journeyTitle}{" "}
+             <span className="text-primary italic font-serif">{home.journeyAccent}</span>
           </h2>
         </div>
         <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {processSteps.map((s, i) => (
+           {content.process.map((s, i) => (
             <Reveal key={s.n} delay={i * 0.05}>
               <div className="h-full rounded-3xl border border-border bg-card p-6 shadow-card">
                 <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl gradient-gold text-primary-foreground font-black text-lg shadow-gold">
@@ -544,6 +543,11 @@ function PatientJourney() {
    SECTION 9 — CTA banner
 ───────────────────────────────────────────── */
 function CtaBanner() {
+  const { publicContent: content } = useContent();
+  const { settings, home } = content;
+  const treatment1Img = content.gallery[1]?.src ?? "/images/treatment-room-1.jpg";
+  const telLink = `tel:${settings.phone}`;
+  const mapDirectionsUrl = settings.mapDirectionsUrl;
   return (
     <section className="px-4 md:px-8 pb-8">
       <div className="mx-auto max-w-6xl relative overflow-hidden rounded-[2rem] gradient-hero p-8 md:p-14 text-accent-foreground shadow-image">
@@ -557,11 +561,11 @@ function CtaBanner() {
         <div className="relative max-w-xl">
           <SectionLabel>Book Your Visit</SectionLabel>
           <h2 className="mt-4 text-3xl md:text-5xl font-black">
-            Ready to begin your{" "}
-            <span className="text-primary-glow italic font-serif">smile journey?</span>
+             {home.ctaTitle}{" "}
+             <span className="text-primary-glow italic font-serif">{home.ctaAccent}</span>
           </h2>
           <p className="mt-4 text-accent-foreground/80">
-            Same-week appointments available. Call or WhatsApp us for a quick consultation.
+             {home.ctaDescription}
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link

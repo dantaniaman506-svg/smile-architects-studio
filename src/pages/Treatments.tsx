@@ -12,10 +12,14 @@ import {
 
 import { SectionLabel } from "@/components/ui-bits/SectionLabel";
 import { Reveal } from "@/components/ui-bits/Reveal";
-import { treatments } from "@/lib/data";
-import { whatsappLink, doctorName, clinicShort } from "@/lib/site";
+import { useContent } from "@/lib/content";
+import type { Treatment } from "@/lib/data";
 
 export default function Treatments() {
+  const { publicContent: content } = useContent();
+  const { treatments, settings } = content;
+  const { doctorName, clinicShort } = settings;
+  const whatsappLink = (msg: string) => `https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(msg)}`;
   return (
     <div className="px-5 md:px-8">
       <div className="mx-auto max-w-2xl pt-4 pb-10">
@@ -79,9 +83,12 @@ export default function Treatments() {
   );
 }
 
-function TreatmentCard({ t, index }: { t: (typeof treatments)[number]; index: number }) {
+function TreatmentCard({ t, index }: { t: Treatment; index: number }) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const { content: { settings } } = useContent();
   const Icon = t.icon;
+  const doctorName = settings.doctorName;
+  const whatsappLink = (msg: string) => `https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(msg)}`;
   return (
     <Reveal>
       <article id={`treatment-${t.slug}`} className="scroll-mt-32">

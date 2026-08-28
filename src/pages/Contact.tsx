@@ -7,19 +7,7 @@ import { motion } from "framer-motion";
 import { MapPin, Phone, MessageCircle, Clock, CheckCircle2, Calendar } from "lucide-react";
 
 import { SectionLabel } from "@/components/ui-bits/SectionLabel";
-import {
-  address,
-  phoneDisplay,
-  telLink,
-  hours,
-  whatsappLink,
-  mapEmbedUrl,
-  mapDirectionsUrl,
-  doctorName,
-  clinicShort,
-  city,
-} from "@/lib/site";
-import { treatments } from "@/lib/data";
+import { useContent } from "@/lib/content";
 
 const schema = z.object({
   name: z.string().trim().min(2, "Please enter your name").max(80),
@@ -46,6 +34,11 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>;
 
 export default function Contact() {
+  const { publicContent: content } = useContent();
+  const { settings, treatments } = content;
+  const { address, phoneDisplay, hours, mapEmbedUrl, mapDirectionsUrl, doctorName, clinicShort, city } = settings;
+  const telLink = `tel:${settings.phone}`;
+  const whatsappLink = (msg: string) => `https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(msg)}`;
   const location = useLocation();
   const [submitted, setSubmitted] = useState(false);
 
@@ -67,7 +60,7 @@ export default function Contact() {
 
   const onSubmit = (v: FormValues) => {
     const msg = `Hi ${doctorName}, I'd like to book an appointment.%0A%0AName: ${v.name}%0APhone: ${v.phone}%0ATreatment: ${v.treatment}%0APreferred date: ${v.date}${v.message ? `%0AMessage: ${v.message}` : ""}`;
-    window.open(`https://wa.me/917973369195?text=${msg}`, "_blank");
+     window.open(whatsappLink(`Hi ${doctorName}, I'd like to book an appointment.\n\nName: ${v.name}\nPhone: ${v.phone}\nTreatment: ${v.treatment}\nPreferred date: ${v.date}${v.message ? `\nMessage: ${v.message}` : ""}`), "_blank");
     setSubmitted(true);
     reset();
   };
