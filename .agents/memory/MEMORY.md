@@ -1,0 +1,1 @@
+- [Admin publishing](admin-publishing.md) — local editing works without setup; production GitHub publishing depends on deployment-side environment configuration.

@@ -11,6 +11,7 @@ import { useContent, isAdminSession, setAdminSession, type SiteContent, type Edi
 type Section = "dashboard" | "content" | "media" | "settings";
 type Collection = "home" | "treatments" | "gallery" | "reviews" | "stats" | "features" | "process";
 
+const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "SmileAdmin@2026";
 
 const navSections: { id: Section; label: string; icon: typeof LayoutDashboard }[] = [
@@ -47,6 +48,7 @@ export default function Admin() {
 
 function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
   const navigate = useNavigate();
+  const [username, setUsername] = useState(ADMIN_USERNAME);
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(true);
   const [error, setError] = useState("");
@@ -59,7 +61,7 @@ function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ username, password }),
       });
       if (response.ok) {
         const payload = await response.json();
@@ -71,14 +73,14 @@ function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
         }
       }
       if (response.status === 401) {
-        setError("That password doesn't match. Please try again.");
+        setError("That admin ID or password doesn't match. Please try again.");
         return;
       }
     } catch {
       // Vite's local editor has no serverless API; use the local MVP password below.
     }
-    if (password !== ADMIN_PASSWORD) {
-      setError("That password doesn't match. Please try again.");
+    if (username !== ADMIN_USERNAME || password !== ADMIN_PASSWORD) {
+      setError("That admin ID or password doesn't match. Please try again.");
       return;
     }
     setAdminSession(remember);
@@ -104,9 +106,12 @@ function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
             <h2>Welcome back</h2>
             <p>Sign in to update your public website.</p>
           </div>
+          <label className="admin-label">Admin ID
+            <input data-testid="input-admin-username" autoComplete="username" className={inputClass} type="text" value={username} onChange={(e) => { setUsername(e.target.value); setError(""); }} placeholder="Enter your admin ID" />
+          </label>
           <label className="admin-label">Admin password
             <div className="admin-password-wrap">
-              <input data-testid="input-admin-password" autoComplete="current-password" className={inputClass} type={showPassword ? "text" : "password"} value={password} onChange={(e) => { setPassword(e.target.value); setError(""); }} autoFocus placeholder="Enter your password" />
+              <input data-testid="input-admin-password" autoComplete="current-password" className={inputClass} type={showPassword ? "text" : "password"} value={password} onChange={(e) => { setPassword(e.target.value); setError(""); }} placeholder="Enter your password" />
               <button type="button" className="admin-password-toggle" onClick={() => setShowPassword((value) => !value)}>{showPassword ? "Hide" : "Show"}</button>
             </div>
           </label>

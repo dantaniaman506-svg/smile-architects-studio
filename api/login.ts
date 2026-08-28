@@ -1,5 +1,6 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 
+const fallbackUsername = "admin";
 const fallbackPassword = "SmileAdmin@2026";
 const cookieName = "tooth_wellness_admin";
 
@@ -17,6 +18,10 @@ function makeSession() {
   return `${value}.${signature(value)}`;
 }
 
+function usernameMatches(input: string) {
+  return input === (process.env.ADMIN_USERNAME || fallbackUsername);
+}
+
 function passwordMatches(input: string) {
   const expected = process.env.ADMIN_PASSWORD || fallbackPassword;
   const inputBuffer = Buffer.from(input);
@@ -30,8 +35,13 @@ export default function handler(req: any, res: any) {
     return;
   }
   const body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
-  if (typeof body.password !== "string" || !passwordMatches(body.password)) {
-    res.status(401).json({ error: "Invalid password" });
+  if (
+    typeof body.username !== "string" ||
+    !usernameMatches(body.username) ||
+    typeof body.password !== "string" ||
+    !passwordMatches(body.password)
+  ) {
+    res.status(401).json({ error: "Invalid admin ID or password" });
     return;
   }
   const session = makeSession();
